@@ -1,0 +1,13 @@
+(NOTE: Author name/greeting will be auto-added to this email. Please Delete this text!)
+</tr>
+<tr>
+<td>Just a short note to let you know a about all the great things going
+on with out site!<br> 
+</td>
+</tr>
+<tr>
+<td><p>Thank You</p><p>Regards</p><p>Admin</p></td>
+</tr>
+</table>
+</body>
+</html>

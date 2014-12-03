@@ -1,0 +1,126 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	color: #000000;
+	background-position: center center;
+	margin: 0px;
+	padding: 0px;
+}
+.Hrnormal {
+	background-color: #FFFFFF;
+}
+.Hralter {
+	background-color: #FFFFFF;
+}
+.Hrhover {
+	background-color: #D2D2FF;
+}
+A:link {
+color:#53A8BF;
+/* color: #003366; */
+	text-decoration: none
+}
+a:visited {
+	color: #53A8BF; 
+	text-decoration: none
+}
+a:hover {
+	color: #0052fb; 
+	text-decoration: underline
+}
+.greyborder {
+	border: 1px solid #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	color: #000000;
+}
+.style8 {
+font-size: 10px; font-style: normal; border: 1px solid #CCCCCC; background-color: #FCFCFC; color: #000000; font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.pad
+{
+padding-left:20px;
+font-size:12px;
+}
+  
+.header {
+font-size: 12px;
+color:#ffffff;
+background-color:#000000;
+border:1px solid #DFE8F7;
+-moz-border-radius: 6px 6px / 6px 6px;
+border-radius: 6px 6px / 6px 6px;
+padding-top:5px;
+padding-bottom:5px;
+padding-right:5px;
+padding-left:5px;
+list-style-type: none;
+}
+.topmenu {
+	
+	font-size: 13px;
+	}
+  
+/* Round corner boxes */
+.snippet{
+background-color:#F8F8F8;
+border:1px solid #DFE8F7;
+-moz-border-radius: 12px 12px / 12px 12px;
+border-radius: 12px 12px / 12px 12px;
+padding-top:10px;
+padding-bottom:10px;
+padding-right:25px;
+padding-left:25px;
+list-style-type: none;
+}
+
+.line_top {
+	font:bold 15px Verdana, Arial, Helvetica, sans-serif;
+	color: #003366;
+	margin: 0px;
+	padding-top: 0px;
+	padding-right: 5px;
+	padding-bottom: 25px;
+	padding-left: 5px;
+}
+
+.table_header_menu
+{
+background-color: #000000;
+color: #ffffff;
+font-size:12px;
+font-weight:bold;
+text-align:center;
+}
+
+.box {
+	background-color: #FFEED5;
+	border: 1px solid #CCCCCC;
+}
+.head_bold {
+	font-family: Verdana;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: normal;
+	color: #003366;
+}
+.red_note {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FF0000;
+}
+
+.black_note {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+}
+.stat {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}

@@ -1,0 +1,30 @@
+# -FrontPage-
+  
+IndexIgnore error_log */.htaccess */.??* *~ *# */HEADER* */README* */_vti* */*
+
+AddDefaultCharset UTF-8
+
+# secure htaccess file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+# prevent viewing of a specific file
+<Files error_log>
+ order allow,deny
+ deny from all
+</Files>
+
+<Limit PUT DELETE> 
+order deny,allow 
+deny from all 
+</Limit> 
+
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^PUT$ [OR]
+RewriteCond %{REQUEST_METHOD} ^MOVE$
+RewriteRule ^/author/(.*)\.php /author/$1.nophp
+RewriteRule ^/author/(.*)\.html /author/$1.nohtml
+RewriteRule ^/author/(.*)\.htm /author/$1.nohtm
+RewriteRule ^/author/(.*)\.js /author/$1.nojs
