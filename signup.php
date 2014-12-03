@@ -1,9 +1,8 @@
-
 <?php
 ///////////////////// TERMS OF USE //////////////////////////
 //
 //  1. You must keep the link at the bottom of at least the index.php page on the frontend.
-//  2. You cannot give AF Free to your friends family or anyone else. Anyone that wants AF Free 
+//  2. You cannot give AF Free to your friends family or anyone else. Anyone that wants AF Free
 //     must signup for the download at articlefriendly.com.
 //  3. You may use AF Free on as many of your own sites as you wish, but not for clients or others.
 //     They must signup for their own copy of AF Free also.
@@ -11,14 +10,14 @@
 /////////////////////////////////////////////////////////////
 if(!ob_start("ob_gzhandler")) ob_start();
   session_start();
-  
-function EscapeString($string) 
-{ 
+
+function EscapeString($string)
+{
  if(is_array($string))
  {
         return array_map(__METHOD__, $string);
  }
-    if(!empty($string) && is_string($string)) 
+    if(!empty($string) && is_string($string))
     {
         return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $string);
     }
@@ -34,7 +33,7 @@ $page = "signup";
 include("system/config.inc.php");
 if(isset($_POST['message']))
 {
-if(stristr($_POST['message'], '\n') === FALSE) 
+if(stristr($_POST['message'], '\n') === FALSE)
 {
 $_POST['message'] = nl2br($_POST['message']);
 }else{
@@ -53,27 +52,27 @@ $purifier = new HTMLPurifier($config);
   //Captcha check system here
 $session_key = md5($_POST['data']);
 $session_key2 = $_SESSION['key'];
-if($session_key == $session_key2) 
+if($session_key == $session_key2)
 {
  $cool = "cool";
  }else{
- 
+
 $_SESSION['msg'] = "<p>Your entry for the captcha code was incorrect! Please <a href='javascript:history.back()'>click here</a> to try again.</p> <p>thank you.</p>";
 							unset($_SESSION['key']);
 		header("location:thankyou.php");
-  die(); 
+  die();
 }
 //End Captcha Check here
  foreach ($_POST as $key=>$value) {
   $_POST[$key] = convert($value);
   }
-  
+
 	//$varEmail = $_POST['email'];
 	  $tmp_email = "";
 		$tmp_email = safeEscapeString($_POST['email']);
-    
+
     $e_check = check_email($tmp_email);
-    
+
   if(!$e_check)
   {
    $_SESSION['msg'] = "<p>The email host is not valid.  Please go back and enter a valid email address.</p>";
@@ -82,10 +81,10 @@ $_SESSION['msg'] = "<p>Your entry for the captcha code was incorrect! Please <a 
   }else{
   $varEmail = $tmp_email;
   }
-		
-    
+
+
   // Stop certain domains
-  
+
   if (getenv('HTTP_CLIENT_IP')) {
 $IP = getenv('HTTP_CLIENT_IP');
 }
@@ -103,7 +102,7 @@ $IP = getenv('HTTP_FORWARDED');
 }
 else {
 $IP = $_SERVER['REMOTE_ADDR'];
-} 
+}
   $tmp_pass = "";
   $tmp_pass = stripslashes(strip_tags($_POST['pswd']));
 	$varPassword = $tmp_pass;
@@ -154,10 +153,10 @@ $IP = $_SERVER['REMOTE_ADDR'];
   $bio = $purifier->purify($bio);
 	$tmp_web = "";
 	$tmp_web = stripslashes(strip_tags($_POST['web']));
-  
+
 	$web = safeEscapeString($tmp_web);
   $web = $purifier->purify($web);
-	
+
 	//Test for dupe author names
 	 if($pdo)
 {
@@ -176,11 +175,11 @@ $sql_setting = select_pdo($query,$bind);
 		die();
    }
 	///Test for bad submission charactors
-	
-	
+
+
 	$tmp1_varfirstName = str_replace(".", " ", $varFirstName);
 	$tmp2_varfirstName = str_replace( ' +', '', $tmp1_varfirstName);
-	
+
 		if (!ctype_alpha($tmp2_varfirstName)) {
         $_SESSION['msg'] = "Your first name contains a numeric character.  This is not allowed.  Please return and correct.<br><br>
               Thank you,<br><br>
@@ -188,10 +187,10 @@ $sql_setting = select_pdo($query,$bind);
 		header("location:thankyou.php");
 		die();
 	}
-	
+
 	$tmp3_varlastName = str_replace(".", " ", $varlastName);
 	$tmp4_varlastName = str_replace( ' +', '', $tmp3_varlastName);
-	
+
 	if (!ctype_alpha($tmp4_varlastName)) {
         $_SESSION['msg'] = "Your last name contains a numeric character.  This is not allowed.  Please return and correct.<br><br>
               Thank you,<br><br>
@@ -199,19 +198,19 @@ $sql_setting = select_pdo($query,$bind);
 		header("location:thankyou.php");
 		die();
 	}
-	
+
   if (strcasecmp($varFirstName, $varlastName) == 0) {
-	
+
 	$_SESSION['msg'] = "Your first and last name are the same.  This is not allowed.<br><br>
               Thank you,<br><br>
               Admin Staff";
 		header("location:thankyou.php");
 		die();
 	}
-	
+
 	if(isset($_POST['terms']) && trim($_POST['terms'])==1)
 	{
-		$intIsTerms = 1; 
+		$intIsTerms = 1;
 	}else{
 		$intIsTerms = 0;
 	}
@@ -225,12 +224,12 @@ $sql_author = select_pdo($query,$bind);
 	$sql_author=$d->fetch("select varEmail from tblauthor WHERE varEmail = '$varEmail'");
 }
 	if($sql_author){
-	
+
 		$_SESSION['msg'] = "Email address already exists please enter another email address! <br>
 							Please <a href='signup.php'>click here</a> to sign in, thank you.";
 		header("location:thankyou.php");
 		die();
-	} 
+	}
    if($pdo)
 {
 $query = "SELECT varIPNUM, txtBAN FROM tblauthor WHERE varIPNUM = '$varLogginIP'";
@@ -252,48 +251,48 @@ $sql_IP = select_pdo($query,$bind);
 	}
 }
 //end of varification
-  
+
   if($pdo)
 {
-$query = "INSERT INTO tblauthor ( varEmail, varPassword, varFirstName, varlastName, 
-					varAddress1, varAddress2, varZip, varCity, 
-					varState, intCountry, varPhone, 
-					intIsTerms, intStatus, dtRegisteredDate, varIPNUM, varBio, website, salt ) 
-					VALUES (?, ?, ?, ?, 
-									?, ?, ?, ?, 
-									?, ?, ?, 
+$query = "INSERT INTO tblauthor ( varEmail, varPassword, varFirstName, varlastName,
+					varAddress1, varAddress2, varZip, varCity,
+					varState, intCountry, varPhone,
+					intIsTerms, intStatus, dtRegisteredDate, varIPNUM, varBio, website, salt )
+					VALUES (?, ?, ?, ?,
+									?, ?, ?, ?,
+									?, ?, ?,
 									?, ?, NOW(), ?, ?, ?, ?)";
 $bind = array($varEmail,$varPassword,$varFirstName,$varlastName,$varAddress1,$varAddress2,$varZip,$varCity,$varState,$intCountry,$varPhone,$intIsTerms,0,$varLogginIP,$bio,$web,$salt);
 $result = insert_pdo($query,$bind);
 $insertid = $result;
 }else{
-	$sql = "INSERT INTO tblauthor ( varEmail, varPassword, varFirstName, varlastName, 
-					varAddress1, varAddress2, varZip, varCity, 
-					varState, intCountry, varPhone, 
-					intIsTerms, intStatus, dtRegisteredDate, varIPNUM, varBio, website, salt ) 
-					VALUES ('".safeEscapeString($varEmail)."', '".safeEscapeString($varPassword)."', '".safeEscapeString($varFirstName)."', '".safeEscapeString($varlastName)."', 
-									'".safeEscapeString($varAddress1)."', '".safeEscapeString($varAddress2)."', '".safeEscapeString($varZip)."', '".safeEscapeString($varCity)."', 
-									'".safeEscapeString($varState)."', '".safeEscapeString($intCountry)."', '".safeEscapeString($varPhone)."', 
+	$sql = "INSERT INTO tblauthor ( varEmail, varPassword, varFirstName, varlastName,
+					varAddress1, varAddress2, varZip, varCity,
+					varState, intCountry, varPhone,
+					intIsTerms, intStatus, dtRegisteredDate, varIPNUM, varBio, website, salt )
+					VALUES ('".safeEscapeString($varEmail)."', '".safeEscapeString($varPassword)."', '".safeEscapeString($varFirstName)."', '".safeEscapeString($varlastName)."',
+									'".safeEscapeString($varAddress1)."', '".safeEscapeString($varAddress2)."', '".safeEscapeString($varZip)."', '".safeEscapeString($varCity)."',
+									'".safeEscapeString($varState)."', '".safeEscapeString($intCountry)."', '".safeEscapeString($varPhone)."',
 									'".safeEscapeString($intIsTerms)."', '0', NOW(), '".safeEscapeString($varLogginIP)."', '".safeEscapeString($bio)."',
                   '".safeEscapeString($web)."', '$salt')";
 	$result = $d->exec($sql);
   $insertid = $d->last_id;
-}	
+}
 	if($pdo)
 {
 $query = "SELECT * FROM tblsettings";
 $sql_setting = select_pdo($query,"","sitesettings.af",3600);
 }else{
 	$sql_setting=$d->fetch("select * from tblsettings","daily","sitesettings.af");
-  
+
 }
-	
-	$url_site=$sql_setting[0]['varSiteURL'];  
-	
-	
+
+	$url_site=$sql_setting[0]['varSiteURL'];
+
+
 	$encid=sha1($insertid);
 ////////////////////////// MAIL Function //////////////////////////////////////
-	
+
 	$to = $varEmail;
 				$subject = "User Activation Link From $title";
 				$message = "
@@ -307,11 +306,11 @@ $sql_setting = select_pdo($query,"","sitesettings.af",3600);
 						  <td>Dear $name,</td>
 						</tr>
 						<tr>
-						  <td>Thank you for becoming a member of $title <br> We 
+						  <td>Thank you for becoming a member of $title <br> We
 							encourage you to get into the habit of submitting multiple articles <br>
 							each and every week.  This is a proven way to provide tremendous benefits <br>
 							for your website including link popularity, search engine rankings, and <br>
-							credibility...just to name a few.<br> 
+							credibility...just to name a few.<br>
 							</td>
 						</tr>
 						<tr>
@@ -321,7 +320,7 @@ $sql_setting = select_pdo($query,"","sitesettings.af",3600);
 						  <td>Password : $tmp_pass </td>
 						</tr>
 						<tr>
-				<td>-> Please open given link to activate your profile : 
+				<td>-> Please open given link to activate your profile :
 				<a  href=".$url_site."confirm.php?id=".$encid." target=_blank> Click Here </a> </td>
       </tr>
       <tr>
@@ -344,16 +343,16 @@ $sql_setting = select_pdo($query,"","sitesettings.af",3600);
 						";
 				$headers  = "MIME-Version: 1.0\r\n";
 				$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-				
+
 				/* additional headers */
 				$headers .= "Content-Transfer-Encoding: 8bit\r\n";
 				$headers .= "From: $fromemail\r\n";
 				$headers .= "X-Mailer: PHP" . phpversion();
 				$headers .= "";
-			
+
 				/* and now mail it */
 				//mail($to, $subject, $message, $headers);
-				
+
 				if($email_sent == ""){
 				mail($to, $subject, $message, $headers);
          $email_sent = "true";
@@ -361,282 +360,282 @@ $sql_setting = select_pdo($query,"","sitesettings.af",3600);
 	       header("location:thankyou.php");
 	die();
          }
-     }   
-// End of INSERT operation   
+     }
+// End of INSERT operation
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">  
-  <head>  
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-    <meta NAME="DESCRIPTION" CONTENT="">  
-    <meta NAME="KEYWORDS" CONTENT="">  
-    <meta name="robots" content="index, follow">  
-    <meta name="distribution" content="Global">  
-    <meta NAME="rating" CONTENT="General">  
-    <link rel="stylesheet" href="css/style.css" type="text/css" />  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta NAME="DESCRIPTION" CONTENT="">
+    <meta NAME="KEYWORDS" CONTENT="">
+    <meta name="robots" content="index, follow">
+    <meta name="distribution" content="Global">
+    <meta NAME="rating" CONTENT="General">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
     <title>
       <?php echo $title; ?> | SignUp
-    </title>   
-    <style type="text/css">   .capcha    {     background:url("images/captcha.png");     border:1px solid #DFE8F7;     -moz-border-radius: 12px 12px / 12px 12px;     border-radius: 12px 12px / 12px 12px;         }   
+    </title>
+    <style type="text/css">   .capcha    {     background:url("images/captcha.png");     border:1px solid #DFE8F7;     -moz-border-radius: 12px 12px / 12px 12px;     border-radius: 12px 12px / 12px 12px;         }
     </style>
 <script language="javascript" type="text/javascript">
 function textCounter(field, countfield, maxlimit) {
 if (field.value.length > maxlimit) // if too long...trim it!
 field.value = field.value.substring(0, maxlimit);
 // otherwise, update 'characters left' counter
-else 
+else
 countfield.value = maxlimit - field.value.length;
 }
 // End -->
 </script>
-<script language="javascript" type="text/javascript" src="js/customres.js"></script>  
-  </head>  
+<script language="javascript" type="text/javascript" src="js/customres.js"></script>
+  </head>
   <body>
 <?php
 //Captcha beginning
-//lets use md5 to generate a totally random string 
-$md5 = md5(microtime() * mktime()); 
-/* 
-We dont need a 32 character long string so we trim it down to 5 
-*/ 
-$string = substr($md5,0,5); 
+//lets use md5 to generate a totally random string
+$md5 = md5(microtime() * mktime());
+/*
+We dont need a 32 character long string so we trim it down to 5
+*/
+$string = substr($md5,0,5);
 $_SESSION['key'] = md5($string);
 //Captcha ending
-    ?>  
-    <div class="content">  
+    ?>
+    <div class="content">
       <div class="header_top">
-      </div>  
-      <div class="header">     
-        <?php require_once(INC.'/menu.php'); ?>     
-        <div class="sf_left">  
-          <?php require_once(INC.'/logo.php'); ?>  
-        </div>  
-      </div>  
+      </div>
+      <div class="header">
+        <?php require_once(INC.'/menu.php'); ?>
+        <div class="sf_left">
+          <?php require_once(INC.'/logo.php'); ?>
+        </div>
+      </div>
       <div class="header_bottom">
-      </div>  
-      <div class="subheader">  
+      </div>
+      <div class="subheader">
         <p>
 <?php
        include("language.php");
                 ?>
-        </p>  
-      </div>  
+        </p>
+      </div>
       <div class="header_top">
-      </div>  
-      <div class="left">  
-        <div class="left_side">     
-          <?php require_once(INC.'/left.php'); ?>      
-        </div>  
-        <div class="right_side">  
+      </div>
+      <div class="left">
+        <div class="left_side">
+          <?php require_once(INC.'/left.php'); ?>
+        </div>
+        <div class="right_side">
           <div class="article"><h2>Author Sign Up</h2>
             <p>&nbsp;
             </p>
             <form name="frmsignup" method="post" action="">
-              <table  border="0" cellpadding="0" cellspacing="0" width=99%>                
-                <tr>                               
+              <table  border="0" cellpadding="0" cellspacing="0" width=99%>
+                <tr>
                   <td bgcolor="#FFFFFF">
                     <font size="1">
                       <br>
                       <br>Please make sure your email                   address is correct before submitting this form, as this is where your confimation email from us will be delivered to!
-                    </font>                                           
-                    <table align="left" cellpadding="2" cellspacing="2">                        
-                      <tr>                          
-                        <td colspan="2"></td>                          
-                        <td width="3%" colspan="2"></td>                        
-                      </tr>                        
-                      <tr>                          
-                        <td colspan="2"></td>                        
-                      </tr>                        
-                      <tr>                          
-                        <td colspan="2"><strong>Account Details </strong></td>                        
-                      </tr>                        
-                      <tr>                          
-                        <td width="30%"></td>                          
-                        <td width="70%"></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Email Address: </td>                          
+                    </font>
+                    <table align="left" cellpadding="2" cellspacing="2">
+                      <tr>
+                        <td colspan="2"></td>
+                        <td width="3%" colspan="2"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"><strong>Account Details </strong></td>
+                      </tr>
+                      <tr>
+                        <td width="30%"></td>
+                        <td width="70%"></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Email Address: </td>
                         <td width="70%">
                           <input name="email" type="text" id="email" size="30">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Verify Email: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Verify Email: </td>
                         <td width="70%">
                           <input name="email_v" type="text" id="email_v" size="30">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Password: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Password: </td>
                         <td width="70%">
                           <input name="pswd" type="password" id="pswd" size="25">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Verify Password: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Verify Password: </td>
                         <td width="70%">
                           <input name="cpswd" type="password" id="cpswd" size="25">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%"></td>                          
-                        <td width="70%"></td>                        
-                      </tr>                        
-                      <tr align="center">                          
-                        <td colspan="2"><strong>Member Details </strong></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%"></td>                          
-                        <td width="70%"></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">First Name: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%"></td>
+                        <td width="70%"></td>
+                      </tr>
+                      <tr align="center">
+                        <td colspan="2"><strong>Member Details </strong></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%"></td>
+                        <td width="70%"></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">First Name: </td>
                         <td width="70%">
                           <input name="fname" type="text" id="fname" size="30">&nbsp;&nbsp;
                           <font color="red" size="1">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Last Name: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Last Name: </td>
                         <td width="70%">
                           <input name="lname" type="text" id="lname" size="30">&nbsp;&nbsp;
                           <font color="red" size="1">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Address 1: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Address 1: </td>
                         <td width="70%">
-                          <input name="add1" type="text" id="add1" size="30" value="Optional"></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Address 2: </td>                          
+                          <input name="add1" type="text" id="add1" size="30" value="Optional"></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Address 2: </td>
                         <td width="70%">
-                          <input name="add2" type="text" id="add2" size="30" value="Optional"></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Zip/Postal code: </td>                          
+                          <input name="add2" type="text" id="add2" size="30" value="Optional"></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Zip/Postal code: </td>
                         <td width="70%">
-                          <input name="zip" type="text" id="zip" size="30" value="Optional"></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">City: </td>                          
+                          <input name="zip" type="text" id="zip" size="30" value="Optional"></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">City: </td>
                         <td width="70%">
                           <input name="city" type="text" id="city" size="30">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">State: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">State: </td>
                         <td width="70%">
                           <input name="state" type="text" id="state" size="30">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Country:</td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Country:</td>
                         <td width="70%">
-                          <select name="country" id="country">                              
+                          <select name="country" id="country">
                             <option>Select Country
-                            </option>                              
+                            </option>
 <?php
 		$Country="";
 if($pdo)
 {
 $query = "SELECT * FROM tblcountry";
 $result = select_pdo($query,"","country_list.af",3600);
-}else{ 
+}else{
 		$result = $d->fetch("SELECT * FROM tblcountry","daily","country_list.af");
 }
-		foreach($result as $row) 
+		foreach($result as $row)
 		{
-                            		?>                              
+                            		?>
                             <option value="<? echo $row['intId'];?>" <? if($row['intId']==$Country){echo "selected";}else{echo "";} ?>>
                             <?php echo $row['varCountry'];?>
-                            </option>                              
+                            </option>
 <?php }
-                            		  ?>                          
+                            		  ?>
                           </select> &nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                        
-                      </tr>                        
-                      <tr align="left">                          
-                        <td width="30%">Phone: </td>                          
+                          </font></td>
+                      </tr>
+                      <tr align="left">
+                        <td width="30%">Phone: </td>
                         <td width="70%">
                           <input name="phone" type="text" id="phone" size="30" value="Optional">&nbsp;&nbsp;
                           <font color="red" size="-4">*Req
-                          </font></td>                                                                          
-                        <tr align="left">                          
+                          </font></td>
+                        <tr align="left">
                           <td width="30%">A little about you:&nbsp;&nbsp;
                             <font color="red" size="-4">*Req
-                            </font></td>                          
+                            </font></td>
                           <td width="70%">
 <textarea name=message wrap=physical cols=28 rows=4 onKeyDown="textCounter(this.form.message,this.form.remLen,200);" onKeyUp="textCounter(this.form.message,this.form.remLen,200);"></textarea>
                             <br>
-                            <input readonly type=text name=remLen size=3 maxlength=3 value="200"> characters left</td>                        
-                        </tr>                         
-                        <tr align="left">                          
-                          <td width="30%">Your Website:</td>                          
+                            <input readonly type=text name=remLen size=3 maxlength=3 value="200"> characters left</td>
+                        </tr>
+                        <tr align="left">
+                          <td width="30%">Your Website:</td>
                           <td width="70%">
                             <input name="web" type="text" id="web" size="30" value="">&nbsp;&nbsp;
                             <font color="red" size="-4">*Req
-                            </font></td>                        
-                        </tr>                        
-                        <tr align="left">                          
-                          <td colspan="2">Please submit your site in this manner: http://www.yourdomain.com, and NO Affiliate                            links. Thank you.</td>                                                                          
+                            </font></td>
+                        </tr>
+                        <tr align="left">
+                          <td colspan="2">Please submit your site in this manner: http://www.yourdomain.com, and NO Affiliate                            links. Thank you.</td>
                         </tr>
                         <tr><td>&nbsp;</td>
-                        </tr>                        
-                        <tr align="left">                          
+                        </tr>
+                        <tr align="left">
                           <td width="30%" align="right">
-                            <input name="terms" type="checkbox" id="terms" value="1"></td>                          
-                          <td width="70%">Yes, I agree to the 
+                            <input name="terms" type="checkbox" id="terms" value="1"></td>
+                          <td width="70%">Yes, I agree to the
                             <a href="terms.php">Terms &amp; Conditions</a>&nbsp;&nbsp;
                             <font color="red" size="-4">*Req
-                            </font></td>                        
-                        </tr>                                                                                                   
+                            </font></td>
+                        </tr>
                         <tr><td>&nbsp;</td>
-                        </tr>                        
-                        <tr>                        
+                        </tr>
+                        <tr>
                           <td align="center" class="capcha">
                             <font color="white" size="3"><b>
                                 <?php echo $string ?></b>
-                            </font></td>                                                 
+                            </font></td>
                           <td align="left">&nbsp;&nbsp;&nbsp;Enter the white text&nbsp;&nbsp;
-                            <input name="data" type="text" size="5" value=""></td>                        
+                            <input name="data" type="text" size="5" value=""></td>
                         </tr>
                         <tr><td>&nbsp;</td>
-                        </tr>                                                                          
-                        <tr align="left">                          
-                          <td width="30%">&nbsp;</td>                          
+                        </tr>
+                        <tr align="left">
+                          <td width="30%">&nbsp;</td>
                           <td width="70%">
-                            <input type="submit" name="Submit" value="Submit" onClick="return confirmsubmit();"></td>                        
-                        </tr>                        
-                        <tr>                          
-                          <td colspan="2">&nbsp;</td>                        
-                        </tr>                       
-                    </table>                      
-              </table>                    
-            </form>                  
-            <!-- End index text -->   
-          </div>   
-          <!-- End Content Area -->      
-        </div>  
-      </div>  
-      <div class="right">     
-        <?php require_once(INC.'/right.php'); ?>      
-      </div>  
+                            <input type="submit" name="Submit" value="Submit" onClick="return confirmsubmit();"></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">&nbsp;</td>
+                        </tr>
+                    </table>
+              </table>
+            </form>
+            <!-- End index text -->
+          </div>
+          <!-- End Content Area -->
+        </div>
+      </div>
+      <div class="right">
+        <?php require_once(INC.'/right.php'); ?>
+      </div>
       <div class="header_bottom">
-      </div>  
-      <div class="footer">     
-        <?php require_once(INC.'/footer.php'); ?>      
-      </div>  
-    </div>  
-  </body>  
-</html>  
+      </div>
+      <div class="footer">
+        <?php require_once(INC.'/footer.php'); ?>
+      </div>
+    </div>
+  </body>
+</html>
 <?php
    ob_end_flush();
   ?>
