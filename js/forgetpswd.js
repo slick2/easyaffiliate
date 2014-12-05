@@ -1,7 +1,7 @@
 function confirmsubmit()
 {
 	var condition=true;
-	if(document.frmfgtpswd.email.value.length==0)
+	if(document.frmfgtpswd.email.value.length == 0)
 	{
 		alert("Please enter e-mail.");
 		if(condition==true)
@@ -22,6 +22,8 @@ function confirmsubmit()
 		condition=false;
 		return false;
 	}
+        
+        return true;
 }
 
 function checkMail(email)
