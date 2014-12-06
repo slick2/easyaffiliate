@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Article Friendly
+ */
 if (!$ss->Check() || !isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1) {
     header("location:index.php?filename=adminlogin");
     die();
@@ -73,7 +76,6 @@ if (isset($_REQUEST['submit']) && trim($_REQUEST['submit']) == "Update") {
 }
 ?>
 
-
 <form action="" method="post" enctype="multipart/form-data" name="adminform">
     <br><br>
     <table align="center" cellpadding="2" cellspacing="2">
@@ -134,4 +136,5 @@ if (isset($_REQUEST['submit']) && trim($_REQUEST['submit']) == "Update") {
                 </table>
             </td>
         </tr>
-    </table></form>
+    </table>
+</form>
