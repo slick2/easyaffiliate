@@ -1,19 +1,30 @@
 <?php
+/**
+ * Under modification and improvements
+ *
+ */
 if (!$ss->Check() || !isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1) {
     header("location:index.php?filename=adminlogin");
     die();
 }
-// If member is not login or session is not set
+/**
+ * Session Check
+ */
 if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
     header("location:index.php?filename=adminlogin");
     die();
 }
+/**
+ * Check account type
+ */
 if ($_SESSION['acctype'] == '1') {
     $_SESSION['msg'] = "<p>Sorry, but you don't have permission to view that page.";
     header("location:index.php?filename=thankyou");
     die();
 }
-
+/**
+ * Paging
+ */
 if (isset($_REQUEST['pageno'])) {
     $pgno = sanitize_paranoid_string($_REQUEST['pageno']);
     $page_no = $pgno;
@@ -21,9 +32,19 @@ if (isset($_REQUEST['pageno'])) {
 ?>
 <script language="javascript" src="js/category.js"></script>
 <form action="" method="post" enctype="multipart/form-data" name="adminform">
+
     <?php
     $msg = "";
 
+    /**
+     * Method: Getcatiddel
+     * @param type $ParentID
+     * @param type $num
+     * @param type $selected
+     * @param type $pdo
+     * @param type $check
+     * @return type
+     */
     function Getcatiddel($ParentID, $num, $selected, $pdo, $check) {
         if (isset($_SESSION['pdo']) && $_SESSION['pdo'] == true) {
             $pdo = true;
@@ -54,6 +75,15 @@ if (isset($_REQUEST['pageno'])) {
         }
         return stripslashes($value);
     }
+    /**
+     * Method: GetChild
+     * @param type $ParentID
+     * @param type $num
+     * @param type $selected
+     * @param type $pdo
+     * @param type $check
+     * @return string
+     */
 
     function GetChild($ParentID, $num, $selected, $pdo, $check) {
         if (isset($_SESSION['pdo']) && $_SESSION['pdo'] == true) {
@@ -100,7 +130,11 @@ if (isset($_REQUEST['pageno'])) {
         return $value;
     }
 
-// Insert operation of category
+    /**
+     *
+     * Create method
+     *
+     */
     if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Submit") {
         $parent_id = sanitize_paranoid_string($_REQUEST['parentId']);
         $varCategory = $_REQUEST['name'];
@@ -140,11 +174,22 @@ if (isset($_REQUEST['pageno'])) {
 			VALUES ('$varCategory', '$textDescription', '0', '0', '$parent_id', '1', NOW( ) )";
             $insert = $d->exec($sql);
         }
+
+        // refresh the cache
+        $path = "../cache/scache/";
+        cache_cleanup($path);
+        $path = "cache/acache/";
+        cache_cleanup($path);
+
         header("location:index.php?filename=categories&pageno=" . $pgno);
         die();
     }
 
-// DELETE record from database
+    /**
+     *
+     * Delete Method
+     *
+     */
     if (isset($_REQUEST['a']) && trim($_REQUEST['a']) == 3) {
         if (isset($_REQUEST['catid']) && trim($_REQUEST['catid'] != "")) {
             $adsid = sanitize_paranoid_string($_REQUEST['catid']);
@@ -225,13 +270,24 @@ if (isset($_REQUEST['pageno'])) {
                     }
                 }
             }
+
+            // refresh the cache
+            $path = "../cache/scache/";
+            cache_cleanup($path);
+            $path = "cache/acache/";
+            cache_cleanup($path);
+
             header("location:index.php?filename=categories&pageno=" . $pgno);
             die();
         }
     }
 
 
-// UPDATE the record
+    /**
+     *
+     * Update Method
+     *
+     */
     $Parentid = "";
     $Category = "";
     $Description = "";
@@ -282,9 +338,16 @@ if (isset($_REQUEST['pageno'])) {
                 }
             }
             $action = 2;
+
+            // refresh the cache
+            $path = "../cache/scache/";
+            cache_cleanup($path);
+            $path = "cache/acache/";
+            cache_cleanup($path);
         }
     }
     /**
+     *
      * Update Method
      *
      */
@@ -314,22 +377,32 @@ if (isset($_REQUEST['pageno'])) {
             $result = $d->exec($sql);
         }
         $action = 1;
+
+        // refresh the cache
+        $path = "../cache/scache/";
+        cache_cleanup($path);
+        $path = "cache/acache/";
+        cache_cleanup($path);
         header("location:index.php?filename=categories&pageno=" . $pgno);
         die();
     }
 
+    /**
+     * Remove method
+     * Note: this would remove all categories
+     */
     if (isset($_REQUEST['remove']) && $_REQUEST['remove'] == 'yes') {
         $query = "TRUNCATE TABLE tblcategories";
         $result = select_pdo($query, $bind);
 
         $query = "TRUNCATE TABLE tblarticles";
         $result = select_pdo($query, $bind);
-    } else {
-        $sql = "TRUNCATE TABLE tblcategories";
-        #$result = $d->fetch($sql);
 
-        $sql = "TRUNCATE TABLE tblarticles";
-        #$result = $d->fetch($sql);
+        // refresh the cache
+        $path = "../cache/scache/";
+        cache_cleanup($path);
+        $path = "cache/acache/";
+        cache_cleanup($path);
     }
     ?>
 
@@ -345,7 +418,8 @@ if (isset($_REQUEST['pageno'])) {
                     <td class="line_top"><div align="center">Categories</div></td>
                 </tr>
                 <tr>
-                    <td><table width="100%"  border="0" cellspacing="1" cellpadding="1" >
+                    <td>
+                        <table width="100%"  border="0" cellspacing="1" cellpadding="1" >
                             <tr>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
@@ -379,13 +453,15 @@ if (isset($_REQUEST['pageno'])) {
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan="2"><div align="center">
+                                <td colspan="2">
+                                    <div align="center">
                                         <input type='hidden' name='pageno' value='<?php echo $pgno ?>'>
                                         <input name="Submit" type="submit" id="Submit" value="<? echo ($action==2) ? "Update":"Submit"; ?>" onClick="return confirmsubmit();">
-                                    </div></td>
+                                    </div>
+                                </td>
                             </tr>
-
-                        </table></td>
+                        </table>
+                    </td>
                 </tr>
             </table>
             <?php
@@ -405,7 +481,7 @@ if (isset($_REQUEST['pageno'])) {
                 </td>
             </tr>
 
-            <td >
+            <td>
                 <table  border="0" align="center" cellpadding="2" cellspacing="2" class="greyborder">
                     <tr >
                         <td>Name</td>
@@ -416,10 +492,11 @@ if (isset($_REQUEST['pageno'])) {
 
 
                     <?php
-                    /*                     * ************************************
+                    /**
+                     * ************************************
                       PAGING CODE START
-                     * ************************************ */
-
+                     * ************************************
+                     */
                     //define('ROW_PER_PAGE',10);
                     $row_per_page = 25;
                     $tablename = "tblcategories";
@@ -430,10 +507,11 @@ if (isset($_REQUEST['pageno'])) {
                     $pgno = $page_no;
 
 
-                    /*                     * ************************************
+                    /**
+                     * *************************************
                       PAGING CODE ENDING
-                     * ************************************ */
-
+                     * *************************************
+                     */
                     if ($pdo) {
                         $limit = ($page_no * $row_per_page);
                         $query = "select * from tblcategories ORDER BY varCategory Limit ?,?";
@@ -463,23 +541,23 @@ if (isset($_REQUEST['pageno'])) {
                             <td><p style='color:red;'><a href='index.php?filename=categories&remove=yes' onClick="return confirm('This will permanently delete all categories AND articles. Continue?');">Remove ALL Categories?</a></td>
                         </tr>
                         <tr >
-                            <td colspan="3" ><div align="center"><?php
-                // query line==== Limit ".($page_no*$row_per_page).",".$row_per_page;
-                // PAGING FUNCTION FOR PAGE NUMBER DISPLAYED
-                pagindet_atbotttom_page($div_page_no, $page_no, $req_querystr, $total_db_rec, $row_per_page);
-                        ?>
-                                </div></td>
+                            <td colspan="3" >
+                                <div align="center">
+                                    <?php
+                                    // query line==== Limit ".($page_no*$row_per_page).",".$row_per_page;
+                                    // PAGING FUNCTION FOR PAGE NUMBER DISPLAYED
+                                    pagindet_atbotttom_page($div_page_no, $page_no, $req_querystr, $total_db_rec, $row_per_page);
+                                    ?>
+                                </div>
+                            </td>
                         </tr>
-
-
                         <?php
                     }
                     ?>
-
-
-                </table></td>
+                </table>
+            </td>
             </tr>
-        </table></form>
+        </table>
+    </form>
     <?php
 }
-?>
