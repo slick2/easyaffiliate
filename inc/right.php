@@ -7,24 +7,36 @@ if (!defined('AFFREE')) {
     <h2>Navigation</h2>
 </div>
 <div class="box">
-    <p><a href='signup.php' <?php if ($page == 'signup') {
+    <p><a href='signup.php' <?php
+        if ($page == 'signup') {
+            echo 'class="location"';
+        }
+        ?>>Signup</a></p>
+    <p><a href='learnmore.php' <?php
+        if ($page == 'learnmore') {
+            echo 'class="location"';
+        }
+        ?>>Learn More</a></p>
+    <p><a href='terms.php' <?php
+          if ($page == 'terms') {
+              echo 'class="location"';
+          }
+          ?>>Terms Of Service</a></p>
+    <p><a href='top_authors.php' <?php
+        if ($page == 'top') {
+            echo 'class="location"';
+        }
+        ?>>Top Articles</a></p>
+    <p><a href='aboutus.php' <?php
+        if ($page == 'about') {
+            echo 'class="location"';
+        }
+        ?>>About Us</a></p>
+    <p><a href='privacy.php' <?php
+if ($page == 'privacy') {
     echo 'class="location"';
-} ?>>Signup</a></p>
-    <p><a href='learnmore.php' <?php if ($page == 'learnmore') {
-    echo 'class="location"';
-} ?>>Learn More</a></p>
-    <p><a href='terms.php' <?php if ($page == 'terms') {
-    echo 'class="location"';
-} ?>>Terms Of Service</a></p>
-    <p><a href='top_authors.php' <?php if ($page == 'top') {
-    echo 'class="location"';
-} ?>>Top Articles</a></p>
-    <p><a href='aboutus.php' <?php if ($page == 'about') {
-    echo 'class="location"';
-} ?>>About Us</a></p>
-    <p><a href='privacy.php' <?php if ($page == 'privacy') {
-    echo 'class="location"';
-} ?>>Privacy Policy</a></p>
+}
+        ?>>Privacy Policy</a></p>
     <p><a href='rss.php'>RSS</a></p>
 
 </div>
@@ -54,16 +66,16 @@ if (!defined('AFFREE')) {
         foreach ($myquery as $row) {
             ?>
             <p>
-                <?php
-                if ($row['authPhoto'] > "") {
-                    echo "<img src='author/" . $row['authPhoto'] . "' style='border:1px solid;color: black;' width='44' height='40' alt='Article Friendly Author Photo'>";
-                } else {
-                    echo "<img src='images/male_mem.jpg' style='border:1px solid;color: black' width='44' height='40' alt='Article Friendly Author Photo'>";
-                }
-                $name = stripslashes(htmlentities($row['varFirstName'] . " " . $row['varlastName'], ENT_QUOTES, "UTF-8"));
-                $city = stripslashes(htmlentities($row['varCity'], ENT_QUOTES, "UTF-8"));
-                $state = stripslashes(htmlentities($row['varState'], ENT_QUOTES, "UTF-8"));
-                ?>
+        <?php
+        if ($row['authPhoto'] > "") {
+            echo "<img src='author/" . $row['authPhoto'] . "' style='border:1px solid;color: black;' width='44' height='40' alt='Article Friendly Author Photo'>";
+        } else {
+            echo "<img src='images/male_mem.jpg' style='border:1px solid;color: black' width='44' height='40' alt='Article Friendly Author Photo'>";
+        }
+        $name = stripslashes(htmlentities($row['varFirstName'] . " " . $row['varlastName'], ENT_QUOTES, "UTF-8"));
+        $city = stripslashes(htmlentities($row['varCity'], ENT_QUOTES, "UTF-8"));
+        $state = stripslashes(htmlentities($row['varState'], ENT_QUOTES, "UTF-8"));
+        ?>
             </p>
             <p>
                 <b><?php echo $name; ?></b><br>
@@ -101,7 +113,7 @@ if (!defined('AFFREE')) {
         </form>
     </p>
     </div>
-<?php
+    <?php
 }
 if (isset($_SESSION['uid']) && trim($_SESSION['uid']) != "") {
     ?>
