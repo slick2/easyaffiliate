@@ -46,6 +46,10 @@ if ($result) {
         $minWords = stripString($row['minWords']);
     }
 }
+
+/**
+ * Update Site Settings
+ */
 if (isset($_REQUEST['submit']) && trim($_REQUEST['submit']) == "Update") {
     $varSiteURL = safeEscapeString($_REQUEST['url']);
     $varSiteName = safeEscapeString($_REQUEST['name']);
@@ -57,27 +61,59 @@ if (isset($_REQUEST['submit']) && trim($_REQUEST['submit']) == "Update") {
     $maxWords = safeEscapeString($_REQUEST['maxWords']);
     $minWords = safeEscapeString($_REQUEST['minWords']);
     if ($pdo) {
-        $query = "UPDATE tblsettings SET varSiteURL = ?, varSiteName = ?, ownerName = ?,
- varContactEmail = ?, textAgreement = ?, intTotalArticleinHome = ?,
- intRelatedArticles = ?, minWords = ?, maxWords = ? where intId =?";
-        $bind = array($varSiteURL, $varSiteName, $varOwnerName, $varContactEmail, $textAgreement, $intTotalArticleinHome, $intRelatedArticles,
-            $minWords, $maxWords, $SettingId);
+        $query = "UPDATE tblsettings
+            SET varSiteURL = ?,
+            varSiteName = ?,
+            ownerName = ?,
+            varContactEmail = ?,
+            textAgreement = ?,
+            intTotalArticleinHome = ?,
+            intRelatedArticles = ?,
+            minWords = ?,
+            maxWords = ?
+            WHERE intId =?";
+
+        $bind = array(
+            $varSiteURL,
+            $varSiteName,
+            $varOwnerName,
+            $varContactEmail,
+            $textAgreement,
+            $intTotalArticleinHome,
+            $intRelatedArticles,
+            $minWords,
+            $maxWords,
+            $SettingId);
+
         $update = update_pdo($query, $bind);
     } else {
 
-
-
-        $update = $d->fetch("UPDATE `tblsettings` SET `varSiteURL` = '$varSiteURL', `varSiteName` = '$varSiteName', `ownerName` = '$varOwnerName',
-  `varContactEmail` = '$varContactEmail', `textAgreement` = '$textAgreement', `intTotalArticleinHome` = '$intTotalArticleinHome',
-  `intRelatedArticles` = '$intRelatedArticles', minWords = '$minWords', maxWords = '$maxWords' where intId ='$SettingId'");
+        $update = $d->fetch(
+            "UPDATE `tblsettings` SET `varSiteURL` = '$varSiteURL', "
+            . "`varSiteName` = '$varSiteName', "
+            . "`ownerName` = '$varOwnerName', "
+            . "`varContactEmail` = '$varContactEmail', "
+            . "`textAgreement` = '$textAgreement', "
+            . "`intTotalArticleinHome` = '$intTotalArticleinHome', "
+            . "`intRelatedArticles` = '$intRelatedArticles', "
+            . "`minWords` = '$minWords', "
+            . "`maxWords` = '$maxWords' "
+            . "WHERE intId ='$SettingId'"
+        );
     }
+    // refresh the cache
+    $path = "../cache/scache/";
+    cache_cleanup($path);
+    $path = "cache/acache/";
+    cache_cleanup($path);
     header("location:index.php?filename=settings");
     die();
 }
 ?>
 
 <form action="" method="post" enctype="multipart/form-data" name="adminform">
-    <br><br>
+    <br />
+    <br />
     <table align="center" cellpadding="2" cellspacing="2">
         <tr>
             <td class="line_top">
@@ -123,12 +159,10 @@ if (isset($_REQUEST['submit']) && trim($_REQUEST['submit']) == "Update") {
                     <tr>
                         <td>Max Article Words :</td>
                         <td><input name="maxWords" type="text" id="maxWords" size="20" value="<?= $maxWords; ?>"></td>
-                        </td>
                     </tr>
                     <tr>
                         <td>Minimum Article Words :</td>
                         <td><input name="minWords" type="text" id="minWords" size="20" value="<?= $minWords; ?>"></td>
-                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><input name="submit" type="submit" id="Update" value="Update" onClick="return confirmsubmit();"></td>
