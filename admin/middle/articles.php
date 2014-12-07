@@ -261,7 +261,12 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
 
                     $result = $d->exec($sql_upd);
                 }
-
+                // refresh the cache
+                $path = "../cache/scache/";
+                cache_cleanup($path);
+                $path = "cache/acache/";
+                cache_cleanup($path);
+                
                 $action = 1;
                 /* subject */
                 include("approved_email.tpl");
@@ -277,11 +282,8 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
                 /* and now mail it */
                 mail($toemail, $subject, $message, $headers);
 
-                // refresh the cache
-                $path = "../cache/scache/";
-                cache_cleanup($path);
-                $path = "cache/acache/";
-                cache_cleanup($path);
+
+
                 header("location:index.php?filename=articles&pageno=" . $pageno);
                 die();
             }
