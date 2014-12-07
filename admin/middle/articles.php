@@ -73,9 +73,7 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
         }
         return $value;
     }
-    ?>
 
-    <?php
     /**
      * Insert Method
      */
@@ -266,7 +264,7 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
                 cache_cleanup($path);
                 $path = "cache/acache/";
                 cache_cleanup($path);
-                
+
                 $action = 1;
                 /* subject */
                 include("approved_email.tpl");
