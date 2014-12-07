@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Article Friendly
+ */
 if (!ob_start("ob_gzhandler"))
     ob_start();
 
@@ -45,8 +48,7 @@ if ($_REQUEST) {
 //Prevent local or remote file inclusion vulnerability
 $page = "";
 
-if(!empty($_REQUEST['filename']))
-{
+if (!empty($_REQUEST['filename'])) {
     $page = strtolower($_REQUEST['filename']);
 }
 
@@ -124,33 +126,32 @@ if ($_REQUEST) {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML><HEAD>
         <title>articlefriendly.com | admin cpanel</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/articles.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="css/articles.css" rel="stylesheet" type="text/css" />
     </HEAD>
 
     <body>
         <center>
-
             <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td><table width="100%"  border="0" cellspacing="0" cellpadding="1">
+                    <td>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="1">
                             <tr valign="top">
                                 <td colspan="2"><?php include ("top/top.php"); ?></td>
                             </tr>
                             <tr valign="top">
-                                <td width="15%"><? include("left/left.php");?></td>
-                                <td width="85%"><? include("middle/".$page.".php");?></td>
+                                <td width="15%"><?php include("left/left.php"); ?></td>
+                                <td width="85%"><?php include("middle/" . $page . ".php"); ?></td>
                             </tr>
-                        </table></td>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
-                    <td align='center' valign="middle"><? include("footer/footer.php");?></td>
+                    <td align='center' valign="middle"><?php include("footer/footer.php"); ?></td>
                 </tr>
             </table>
-
         </center>
     </body>
 </HTML>
 <?php
 ob_end_flush();
-?>
