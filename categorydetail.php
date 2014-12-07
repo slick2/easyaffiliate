@@ -80,16 +80,16 @@ $page = '';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <meta NAME="DESCRIPTION" CONTENT="" />
-            <meta NAME="KEYWORDS" CONTENT="" />
-            <meta name="robots" content="index, follow" />
-            <meta name="distribution" content="Global" />
-            <meta NAME="rating" CONTENT="General" />
-            <link rel="stylesheet" href="css/style.css" type="text/css" />
-            <title>
-                <?php echo $title; ?>
-            </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta NAME="DESCRIPTION" CONTENT="" />
+        <meta NAME="KEYWORDS" CONTENT="" />
+        <meta name="robots" content="index, follow" />
+        <meta name="distribution" content="Global" />
+        <meta NAME="rating" CONTENT="General" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <title>
+            <?php echo $title; ?>
+        </title>
     </head>
     <body>
         <div class="content">
@@ -186,99 +186,96 @@ $page = '';
                                         $the_title = htmlentities($the_title, ENT_QUOTES, "UTF-8");
                                         ?>
                                         <ul>
-                                            <?
-
-                                            ?>
                                             <li>
                                                 <a href="articledetail.php?artid=<? echo $row['intId'];?>&amp;catid=<? echo $row['intCategory'];?>&amp;title=<?php echo str_replace(" ", "-", $the_title) ?>" title="<? echo $the_title;?>"><?php echo $the_title ?></a>
                                                 <em>By
                                                 </em>:-
                                                 <a href="authordetail.php?autid=<?= $row['intAuthorId'] ?>">
                                                     <? echo $authorname123;?></a>
-                                                <br>
-                                                    <?php echo $artsummery; ?>
-                                                    <br>
-                                                        </ul>
-                                                        <?php
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            echo "<br><br><div align='left'>There are no articles in this category at this time, or the article you are looking for is in it's subcategory.
-                                                                                    If you clicked on the 'Last' article link, <a href='javascript:history.back()'>click here</a> to go back!</div>";
-                                        }
-                                        ?>
-                                        <p align='center'>
-                                            <?php
-                                            $level = sanitize_paranoid_string($_GET['level']);
-                                            if (!empty($result1)) {
-                                                if ($pageno == 1) {
-                                                    echo " FIRST PREV ";
-                                                } else {
-                                                    echo " <a href='categorydetail.php?pageno=1&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>FIRST</a> ";
-                                                    $prevpage = $pageno - 1;
-                                                    echo "<a href='categorydetail.php?pageno=" . $prevpage . "&Cat=" . $thiscat . "&level=" . $level . "'>PREV</a> ";
-                                                }
-
-                                                echo " ( Page $pageno of $lastpage ) ";
-
-                                                if ($pageno == $lastpage) {
-                                                    echo " NEXT LAST ";
-                                                } else {
-                                                    $nextpage = $pageno + 1;
-                                                    echo " <a href='categorydetail.php?pageno=" . $nextpage . "&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>NEXT</a> ";
-
-                                                    echo " <a href='categorydetail.php?pageno=" . $lastpage . "&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>LAST</a> ";
-                                                }
-                                            }
-                                            ?>
-                                        </p>
-                                        <p>&nbsp;
-                                        </p>  <h2>Most Recent Articles </h2>
-                                        <?php
-                                        if ($pdo) {
-                                            $query = "SELECT * FROM tblarticles where intStatus = ? ORDER BY ttSubmitDate DESC LIMIT 0 , ?";
-                                            $bind = array(1, $homearticle);
-                                            $result3 = select_pdo($query, $bind);
-                                        } else {
-                                            $sql = "SELECT * FROM tblarticles where intStatus = 1 ORDER BY ttSubmitDate DESC LIMIT 0 , '" . safeEscapeString($homearticle) . "'";
-                                            $result3 = $d->fetch($sql);
-                                        }
-                                        ?>
-                                        <ul style="list-style-image: url(images/a3.gif);">
-                                            <?php
-                                            if (isset($result3)) {
-
-                                                foreach ($result3 as $row) {
-                                                    $the_title = stripString($row['varArticleTitle']);
-                                                    $the_title = htmlentities($the_title, ENT_QUOTES, "UTF-8");
-                                                    ?>
-                                                    <li>
-                                                        <a href="articledetail.php?artid=<? echo $row['intId'];?>&amp;catid=<? echo $row['intCategory'];?>&amp;title=
-                                                           <?php echo str_replace(" ", "-", $the_title) ?>" title="
-                                                           <? echo $the_title;?>">
-                                                            <?php echo $the_title; ?></a>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
+                                                <br />
+                                                <?php echo $artsummery; ?>
+                                                <br />
+                                            </li>
                                         </ul>
-                                        <!-- End index text -->
-                                        </div>
-                                        <!-- End Content Area -->
-                                        </div>
-                                        </div>
-                                        <div class="right">
-                                            <?php require_once(INC . '/right.php'); ?>
-                                        </div>
-                                        <div class="header_bottom">
-                                        </div>
-                                        <div class="footer">
-                                            <?php require_once(INC . '/footer.php'); ?>
-                                        </div>
-                                        </div>
-                                        </body>
-                                        </html>
                                         <?php
-                                        ob_end_flush();
-                                        ?>
+                                    }
+                                }
+                            }
+                        } else {
+                            echo "<br><br><div align='left'>There are no articles in this category at this time, or the article you are looking for is in it's subcategory.
+                                                                                    If you clicked on the 'Last' article link, <a href='javascript:history.back()'>click here</a> to go back!</div>";
+                        }
+                        ?>
+                        <p align='center'>
+                            <?php
+                            $level = sanitize_paranoid_string($_GET['level']);
+                            if (!empty($result1)) {
+                                if ($pageno == 1) {
+                                    echo " FIRST PREV ";
+                                } else {
+                                    echo " <a href='categorydetail.php?pageno=1&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>FIRST</a> ";
+                                    $prevpage = $pageno - 1;
+                                    echo "<a href='categorydetail.php?pageno=" . $prevpage . "&Cat=" . $thiscat . "&level=" . $level . "'>PREV</a> ";
+                                }
+
+                                echo " ( Page $pageno of $lastpage ) ";
+
+                                if ($pageno == $lastpage) {
+                                    echo " NEXT LAST ";
+                                } else {
+                                    $nextpage = $pageno + 1;
+                                    echo " <a href='categorydetail.php?pageno=" . $nextpage . "&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>NEXT</a> ";
+
+                                    echo " <a href='categorydetail.php?pageno=" . $lastpage . "&amp;Cat=" . $thiscat . "&amp;level=" . $level . "'>LAST</a> ";
+                                }
+                            }
+                            ?>
+                        </p>
+                        <p>&nbsp;
+                        </p>  <h2>Most Recent Articles </h2>
+                        <?php
+                        if ($pdo) {
+                            $query = "SELECT * FROM tblarticles where intStatus = ? ORDER BY ttSubmitDate DESC LIMIT 0 , ?";
+                            $bind = array(1, $homearticle);
+                            $result3 = select_pdo($query, $bind);
+                        } else {
+                            $sql = "SELECT * FROM tblarticles where intStatus = 1 ORDER BY ttSubmitDate DESC LIMIT 0 , '" . safeEscapeString($homearticle) . "'";
+                            $result3 = $d->fetch($sql);
+                        }
+                        ?>
+                        <ul style="list-style-image: url(images/a3.gif);">
+                            <?php
+                            if (isset($result3)) {
+
+                                foreach ($result3 as $row) {
+                                    $the_title = stripString($row['varArticleTitle']);
+                                    $the_title = htmlentities($the_title, ENT_QUOTES, "UTF-8");
+                                    ?>
+                                    <li>
+                                        <a href="articledetail.php?artid=<? echo $row['intId'];?>&amp;catid=<? echo $row['intCategory'];?>&amp;title=
+                                           <?php echo str_replace(" ", "-", $the_title) ?>" title="
+                                           <? echo $the_title;?>">
+                                            <?php echo $the_title; ?></a>
+                                            <?php
+                                    }
+                                }
+                                ?>
+                        </ul>
+                        <!-- End index text -->
+                    </div>
+                    <!-- End Content Area -->
+                </div>
+            </div>
+            <div class="right">
+                <?php require_once(INC . '/right.php'); ?>
+            </div>
+            <div class="header_bottom">
+            </div>
+            <div class="footer">
+                <?php require_once(INC . '/footer.php'); ?>
+            </div>
+        </div>
+    </body>
+</html>
+<?php
+ob_end_flush();
