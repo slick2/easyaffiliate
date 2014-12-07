@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Article Friendly
+ */
 if (!defined('AFFREE')) {
     die('You cannot access this page directly!');
 }
@@ -67,6 +69,11 @@ $d = new db(0);
 $db = '';
 $GLOBALS['db_conn'] = '';
 
+/**
+ *
+ * Function db_con
+ *
+ */
 function db_con() {
     try {
         $db = new PDO('mysql:host=' . SERVER_NAME . ';dbname=' . DB_NAME . ';charset=UTF8', USER_NAME, PASSWORD, array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -265,7 +272,6 @@ function delete_pdo($query = '', $bind = '') {
  * @param type $bind
  * @return boolean
  */
-
 function count_pdo($query = '', $bind = '') {
     if ($query == '') {
         error_log("The Count function query is empty!");
