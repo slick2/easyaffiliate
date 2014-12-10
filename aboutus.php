@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @package Article Friendly
+ *
+ */
 ///////////////////// TERMS OF USE //////////////////////////
 //
 //  1. You must keep a link to articlefriendly.com at the bottom of at least one page on the frontend pages.

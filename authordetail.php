@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Article Friendly
+ */
 ///////////////////// TERMS OF USE //////////////////////////
 //
 //  1. You must keep a link to articlefriendly.com at the bottom of at least one page on the frontend pages.
@@ -117,7 +120,7 @@ $res_bio = stripString(convert($rows[0]['textResource']));
                 </div>
                 <div class="right_side">
                     <div class="article"><h2>
-                            <? echo $authorname?>'s Profile</h2>
+                            <?php echo $authorname ?>'s Profile</h2>
                         <p>&nbsp;
                         </p>
                         <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2">
@@ -205,31 +208,34 @@ FROM tblarticles where intAuthorId = '$authorId' AND intStatus = 1 ORDER BY ttSu
                         ?>
                         <div align="left">My Articles
                         </div>
-                        <br>
-                            <ul>
-                                <?
-                                if(isset($result1))
-                                {
-                                foreach ($result1 as $row)
-                                {
-                                $the_title = stripString($row['varArticleTitle']);
-                                ?>
-                                <li>
-                                    <a href="articledetail.php?artid=<? echo $row['intId'];?>&catid=<? echo $row['intCategory'];?>&title=
-                                       <?php echo htmlentities($the_title) ?>" title="
-                                       <? echo stripString(htmlentities($row['varArticleTitle']));?>">
-                                        <? echo stripString(htmlentities($row['varArticleTitle']));?></a>
-                                    <?	}
-                                    }
-                                    ?>
-                            </ul>
-                            <p>
-                            </p></td>
+                        <br />
+                        <table>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <?php
+                                        if (isset($result1)) {
+                                            foreach ($result1 as $row) {
+                                                $the_title = stripString($row['varArticleTitle']);
+                                                ?>
+                                                <li>
+                                                    <a href="articledetail.php?artid=<? echo $row['intId'];?>&catid=<? echo $row['intCategory'];?>&title=
+                                                       <?php echo htmlentities($the_title) ?>" title="
+                                                       <? echo stripString(htmlentities($row['varArticleTitle']));?>">
+                                                        <?php echo stripString(htmlentities($row['varArticleTitle'])); ?></a>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </li>
+                                    </ul>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="fonttitle">Most Recent Articles </td>
                             </tr>
-                            <tr><td>
+                            <tr>
+                                <td>
                                     <?php
                                     if ($pdo) {
                                         $query = "SELECT intTotalArticleinHome FROM tblsettings";
@@ -265,22 +271,24 @@ FROM tblarticles where intStatus = 1 ORDER BY ttSubmitDate DESC LIMIT 0 , '$home
                                         }
                                         ?>
                                     </ul>
-                                    <!-- End index text -->
-                                    </div>
-                                    <!-- End Content Area -->
-                                    </div>
-                                    </div>
-                                    <div class="right">
-                                        <?php require_once(INC . '/right.php'); ?>
-                                    </div>
-                                    <div class="header_bottom">
-                                    </div>
-                                    <div class="footer">
-                                        <?php require_once(INC . '/footer.php'); ?>
-                                    </div>
-                                    </div>
-                                    </body>
-                                    </html>
-                                    <?php
-                                    ob_end_flush();
-                                    ?>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- End index text -->
+                    </div>
+                    <!-- End Content Area -->
+                </div>
+            </div>
+            <div class="right">
+                <?php require_once(INC . '/right.php'); ?>
+            </div>
+            <div class="header_bottom">
+            </div>
+            <div class="footer">
+                <?php require_once(INC . '/footer.php'); ?>
+            </div>
+        </div>
+    </body>
+</html>
+<?php
+ob_end_flush();
