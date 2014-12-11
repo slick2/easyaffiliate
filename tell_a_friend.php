@@ -195,52 +195,67 @@ if (isset($_POST['Submit']) && $_POST['Submit'] == 'Send') {
                             <table  align="left" border="0" cellpadding="5" cellspacing="2">
                                 <tr align="center">
                                     <td colspan="2">  Tell your friend About
-                                        <?php echo $title ?></td>
+                                        <?php echo $title ?>
+                                    </td>
                                 </tr>
-                                <tr>  <td>
-                                        <div align="right">  Your Email Address :
-                                        </div></td>  <td>
+                                <tr>
+                                    <td>
+                                        <div align="right">  Your Email Address :</div>
+                                    </td>
+                                    <td>
                                         <div align="left">
                                             <input name="myEmail" type="text" id="myEmail" size="30">
-                                        </div></td>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>  <td>
-                                        <div align="right">  Your Friends Email Address:
-                                        </div></td>  <td>
+                                <tr>
+                                    <td>
+                                        <div align="right">  Your Friends Email Address:</div>
+                                    </td>
+                                    <td>
                                         <div align="left">
                                             <input name="yourEmail" type="text" id="yourEmail" size="30">
-                                        </div></td>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>  <td>
-                                        <div align="right">  Subject:
-                                        </div></td>  <td>
+                                <tr>
+                                    <td>
+                                        <div align="right">  Subject:</div>
+                                    </td>
+                                    <td>
                                         <div align="left">
                                             <input name="Sub" type="text" id="Sub" size="30">
-                                        </div></td>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td valign="top">
                                         <div align="right">  Message:
-                                        </div></td>  <td>
+                                        </div>
+                                    </td>
+                                    <td>
                                         <div align="left">
                                             <textarea name="Msg" cols="30" rows="5" id="Msg">Hey you!,
-  I found a great site which has tons of articles. Check out this article:
-                                                <?php
-                                                echo $details;
-                                                ?>
-  and its at the link given below. <?php echo $site_URL; ?>
-  best,
-  your friend.</textarea>
-                                        </div></td>
+                                                I found a great site which has tons of articles. Check out this article:
+                                                <?php echo $details; ?>  and its at the link given below. <?php echo $site_URL; ?>
+                                                best,
+                                                your friend.
+                                            </textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <div align="center">
                                             <input type="submit" name="Submit" value="Send">
-                                        </div></td>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>  <td>  Attempts: </td>  <td>
-                                        <?php echo $_SESSION['friend'] ?></td>
+                                <tr>
+                                    <td>  Attempts: </td>
+                                    <td>
+                                        <?php echo $_SESSION['friend'] ?>
+                                    </td>
                                 </tr>
                             </table>
                         </form>
@@ -262,4 +277,3 @@ if (isset($_POST['Submit']) && $_POST['Submit'] == 'Send') {
 </html>
 <?php
 ob_end_flush();
-?>
