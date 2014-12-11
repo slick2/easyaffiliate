@@ -85,7 +85,7 @@ if (isset($_POST['Submit']) && trim($_POST['Submit']) == "Submit") {
         die("Your session is invalid. Please login!");
     }
     unset($_SESSION['block']);
-    
+
     $userid = $_SESSION['uid'];
     if (trim($_POST['author']) != trim($userid)) {
         $_SESSION['msg'] = "<p>Mismatched User ID! Please re-login.</p>";
@@ -293,8 +293,7 @@ if (isset($_POST['Submit']) && trim($_POST['Submit']) == "Submit") {
         header("location:thankyou.php");
     }
 }
-?>
-<?php
+
 $msg = "";
 
 function Getcatiddel($ParentID, $num, $selected, $db, $check) {
@@ -374,7 +373,7 @@ function GetChild($ParentID, $num, $selected, $pdo, $check) {
         <meta NAME="rating" CONTENT="General" />
         <link rel="stylesheet" href="css/style.css" type="text/css" />
         <title>
-<?php echo $title; ?> | Submit Article
+            <?php echo $title; ?> | Submit Article
         </title>
         <style type="text/css">
             .capcha    {
@@ -524,9 +523,9 @@ function GetChild($ParentID, $num, $selected, $pdo, $check) {
             <div class="header_top">
             </div>
             <div class="header">
-                    <?php require_once(INC . '/menu.php'); ?>
+                <?php require_once(INC . '/menu.php'); ?>
                 <div class="sf_left">
-<?php require_once(INC . '/logo.php'); ?>
+                    <?php require_once(INC . '/logo.php'); ?>
                 </div>
             </div>
             <div class="header_bottom">
@@ -542,7 +541,7 @@ function GetChild($ParentID, $num, $selected, $pdo, $check) {
             </div>
             <div class="left">
                 <div class="left_side">
-<?php require_once(INC . '/left.php'); ?>
+                    <?php require_once(INC . '/left.php'); ?>
                 </div>
                 <div class="right_side">
                     <div class="article"><h2>Submit Article</h2>
@@ -559,7 +558,7 @@ function GetChild($ParentID, $num, $selected, $pdo, $check) {
                                         <td>
                                             <select size="1" name="author">
                                                 <option value="<? echo $_SESSION['uid'];?>">
-<?php echo $_SESSION['uname']; ?>
+                                                    <?php echo $_SESSION['uname']; ?>
                                                 </option>
                                             </select>
                                         </td>
@@ -675,12 +674,12 @@ function GetChild($ParentID, $num, $selected, $pdo, $check) {
                 </div>
             </div>
             <div class="right">
-<?php require_once(INC . '/right.php'); ?>
+                <?php require_once(INC . '/right.php'); ?>
             </div>
             <div class="header_bottom">
             </div>
             <div class="footer">
-<?php require_once(INC . '/footer.php'); ?>
+                <?php require_once(INC . '/footer.php'); ?>
             </div>
         </div>
     </body>
