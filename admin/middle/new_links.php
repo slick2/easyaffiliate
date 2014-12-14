@@ -188,20 +188,22 @@ if (isset($_REQUEST['pageno'])) {
     if (isset($_REQUEST['script'])) {
         if (trim($_REQUEST['script']) == 'addauthor' || trim($_REQUEST['script']) == 'editauthor') {
             ?>
-            <br>
+            <br />
             <table  border="0" align="center" cellpadding="1" cellspacing="1" width="725">
                 <tr>
                     <td class="line_top"><div align="center"> Add/Edit Links</div></td>
                 </tr>
                 <tr>
-                    <td><table width="100%"  border="0" cellspacing="1" cellpadding="1" class="greyborder" width="725">
+                    <td>
+                        <table width="100%"  border="0" cellspacing="1" cellpadding="1" class="greyborder" width="725">
                             <tr>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>Link : </td>
-                                <td><select name="author" id="author">
+                                <td>
+                                    <select name="author" id="author">
                                         <option>Select Link</option>
                                         <?php
                                         if ($pdo) {
@@ -224,27 +226,27 @@ if (isset($_REQUEST['pageno'])) {
                                                 ?>
                                     </select></td>
                             </tr>
-
-
                             <tr>
                                 <td align="left">First Name</td>
-                                <td align="left"><input type="text" name="user_fname" value="<? echo $Password?>" MAXLENGTH="50" SIZE="40"></td>
+                                <td align="left"><input type="text" name="user_fname" value="<? echo $Password?>" MAXLENGTH="50" SIZE="40" ></td>
                             </tr>
                             <tr>
                                 <td align="left">Last Name</td>
-                                <td align="left"><input type="text" name="user_lname" value="<? echo $FirstName?>" MAXLENGTH="70" SIZE="40"></td>
-                            </tr><tr>
+                                <td align="left"><input type="text" name="user_lname" value="<? echo $FirstName?>" MAXLENGTH="70" SIZE="40" /></td>
+                            </tr>
+                            <tr>
                                 <td align="left">Your Email:</td>
-                                <td align="left"><input type="text" name="user_email" value="<? echo $Email?>" MAXLENGTH="50" SIZE="30">
-                                </td></tr><tr>
+                                <td align="left"><input type="text" name="user_email" value="<? echo $Email?>" MAXLENGTH="50" SIZE="30" /></td>
+                            </tr>
+                            <tr>
                                 <td align="left">Sites Name</td>
-                                <td align="left"><input type="text" name="site_name" value="<? echo $lastName?>" MAXLENGTH="75" SIZE="40"></td>
+                                <td align="left"><input type="text" name="site_name" value="<? echo $lastName?>" MAXLENGTH="75" SIZE="40" /></td>
                             </tr><tr>
                                 <td align="left">Site Address:</td>
-                                <td align="left"><input type="text" name="site_addy"  value="<? echo $Address1?>" MAXLENGTH="75" SIZE="40"></td>
+                                <td align="left"><input type="text" name="site_addy"  value="<? echo $Address1?>" MAXLENGTH="75" SIZE="40" /></td>
                             </tr><tr>
                                 <td align="left">Site Desc:</td>
-                                <td align="left"><textarea cols='50' rows='10' name='site_desc'><? echo $Address2?></textarea></td>
+                                <td align="left"><textarea cols='50' rows='10' name='site_desc'><?php echo $Address2 ?></textarea></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><div align="center">
@@ -255,10 +257,11 @@ if (isset($_REQUEST['pageno'])) {
                                             echo "Submit";
                                         }
                                         ?>" onClick="return confirmsubmit();">
-                                    </div></td>
-
-
-                        </table></td>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
             <?php
@@ -272,7 +275,9 @@ if (isset($_REQUEST['pageno'])) {
         <br><br>
 
         <table border="0" align="center" cellpadding="1" cellspacing="0" width='98%'>
-            <tr><td>&nbsp;</td></tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
             <tr>
                 <td height="20">
                     <table border="0" align="center" cellpadding="1" cellspacing="0" width='75%'>
@@ -283,131 +288,130 @@ if (isset($_REQUEST['pageno'])) {
                     </table>
                 </td>
             </tr>
-            <tr><td>&nbsp;</td></tr>
-            <td >
-                <table  border="0" align="center" cellpadding="2" cellspacing="5" class="greyborder" width ='98%'>
-                    <tr class='table_header_menu'>
-                        <td>Name</td>
-                        <td>Site Name</td>
-                        <td>Site Address</td>
-                        <td>Email</td>
-                        <td>Status</td>
-                        <td>Detail</td>
-                        <td><div align="center">Edit</div></td>
-                        <td><div align="center">Delete</div></td>
-                    </tr>
-
-
-                    <?php
-                    /*                     * ************************************
-                      PAGING CODE START
-                     * ************************************ */
-
-
-                    if ($pdo) {
-                        $query = "SELECT count(*) FROM tbllinks";
-                        $result = select_pdo($query);
-                    } else {
-                        $query = "SELECT count(*) FROM tbllinks";
-                        $result = $d->fetch($query);
-                    }
-
-                    $numrows = $result[0]['count(*)'];
-
-                    $rows_per_page = 20;
-                    $lastpage = ceil($numrows / $rows_per_page);
-
-                    $pageno = (int) $pageno;
-                    if ($pageno < 1) {
-                        $pageno = 1;
-                    } elseif ($pageno > $lastpage) {
-                        $pageno = $lastpage;
-                    }
-
-
-                    if ($pdo) {
-                        $limit = $pageno - 1;
-                        $query = "SELECT * FROM tbllinks ORDER BY status Limit ?,?";
-                        $bind = array($limit, $rows_per_page);
-                        $sql = select_pdo($query, $bind);
-                    } else {
-                        $sql_select = "SELECT * FROM tbllinks ORDER BY status Limit " . ($pageno - 1) * $rows_per_page . "," . $rows_per_page;
-                        $sql = $obj_db->select($sql_select);
-                    }
-
-
-
-                    /*                     * ************************************
-                      PAGING CODE ENDING
-                     * ************************************ */
-
-                    if ($sql) {
-                        $i = 0;
-                        foreach ($sql as $row) {
-                            $i = $i + 1;
-                            ?>
-                            <tr class="<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>" onMouseOver="this.className = 'Hrhover';"  onMouseOut="this.className = '<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>';">
-                                <td><?php echo stripString($row['fname']) . "" . stripString($row['lname']); ?></td>
-                                <td><?php echo stripString($row['site_name']); ?></td>
-                                <td><?php echo stripString($row['site_addy']); ?></td>
-                                <td><?php echo stripString($row['email']); ?></td>
-                                <?php
-                                if ($row['status'] == 0) {
-                                    $intId = $row['intNumber'];
-                                    echo "<td><a class='link' href='index.php?filename=new_links&s=0&authorid=$intId'>Unapproved</a></td>";
-                                }
-                                if ($row['status'] == 1) {
-                                    $intId = $row['intNumber'];
-                                    echo "<td><a class='link' href='index.php?filename=new_links&s=1&authorid=$intId'>APPROVED</a></td>";
-                                }
-                                ?>
-
-                                <td><a class="link" href="index.php?filename=links_detail&a=4&authorid=<?php echo $row['intNumber']; ?>">Detail</a></td>
-                                <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&script=editauthor&a=2&authorid=<?php echo $row['intNumber']; ?>&amp;pagno=<?php echo $pageno; ?>"> <img src="images/edit.png" alt="Edit" border="0"> </a></td>
-                                <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&a=3&authorid=<?php echo $row['intNumber']; ?>&amp;pagno=<?php echo $pageno; ?>" onClick="return confirm('Are you sure you wish to delete this record ?');"> <img src="images/del.png" alt="Delete" border="0"> </a></td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-
-                        <input type="hidden" name="pagenum" value=<?php echo $pageno ?>
-                               <tr >
-                            <td colspan="3" ><div align="center"><?php
-                                    if ($pageno == 1) {
-                                        echo " FIRST PREV ";
-                                    } else {
-                                        echo " <a href='index.php?filename=new_links&pageno=1'>FIRST</a> ";
-                                        $prevpage = $pageno - 1;
-                                        echo " <a href='index.php?filename=new_links&pageno=$prevpage'>PREV</a> ";
-                                    }
-
-                                    echo " ( Page $pageno of $lastpage ) ";
-
-                                    if ($pageno == $lastpage) {
-                                        echo " NEXT LAST ";
-                                    } else {
-                                        $nextpage = $pageno + 1;
-                                        echo " <a href='index.php?filename=new_links&pageno=$nextpage'>NEXT</a> ";
-                                        echo " <a href='index.php?filename=new_links&pageno=$lastpage'>LAST</a> ";
-                                    }
-                                    //extract($_GET);
-                                    //echo $pageno;
-                                    ?>
-
-                                </div></td>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <table  border="0" align="center" cellpadding="2" cellspacing="5" class="greyborder" width ='98%'>
+                        <tr class='table_header_menu'>
+                            <td>Name</td>
+                            <td>Site Name</td>
+                            <td>Site Address</td>
+                            <td>Email</td>
+                            <td>Status</td>
+                            <td>Detail</td>
+                            <td><div align="center">Edit</div></td>
+                            <td><div align="center">Delete</div></td>
                         </tr>
 
 
                         <?php
-                    }
-                    ?>
+                        /**                         * ************************************
+                          PAGING CODE START
+                         * ************************************ */
+                        if ($pdo) {
+                            $query = "SELECT count(*) FROM tbllinks";
+                            $result = select_pdo($query);
+                        } else {
+                            $query = "SELECT count(*) FROM tbllinks";
+                            $result = $d->fetch($query);
+                        }
+
+                        $numrows = $result[0]['count(*)'];
+
+                        $rows_per_page = 20;
+                        $lastpage = ceil($numrows / $rows_per_page);
+
+                        $pageno = (int) $pageno;
+                        if ($pageno < 1) {
+                            $pageno = 1;
+                        } elseif ($pageno > $lastpage) {
+                            $pageno = $lastpage;
+                        }
 
 
-                </table></td>
+                        if ($pdo) {
+                            $limit = $pageno - 1;
+                            $query = "SELECT * FROM tbllinks ORDER BY status Limit ?,?";
+                            $bind = array($limit, $rows_per_page);
+                            $sql = select_pdo($query, $bind);
+                        } else {
+                            $sql_select = "SELECT * FROM tbllinks ORDER BY status Limit " . ($pageno - 1) * $rows_per_page . "," . $rows_per_page;
+                            $sql = $obj_db->select($sql_select);
+                        }
+
+
+
+                        /*                         * ************************************
+                          PAGING CODE ENDING
+                         * ************************************ */
+
+                        if ($sql) {
+                            $i = 0;
+                            foreach ($sql as $row) {
+                                $i = $i + 1;
+                                ?>
+                                <tr class="<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>" onMouseOver="this.className = 'Hrhover';"  onMouseOut="this.className = '<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>';">
+                                    <td><?php echo stripString($row['fname']) . "" . stripString($row['lname']); ?></td>
+                                    <td><?php echo stripString($row['site_name']); ?></td>
+                                    <td><?php echo stripString($row['site_addy']); ?></td>
+                                    <td><?php echo stripString($row['email']); ?></td>
+                                    <?php
+                                    if ($row['status'] == 0) {
+                                        $intId = $row['intNumber'];
+                                        echo "<td><a class='link' href='index.php?filename=new_links&s=0&authorid=$intId'>Unapproved</a></td>";
+                                    }
+                                    if ($row['status'] == 1) {
+                                        $intId = $row['intNumber'];
+                                        echo "<td><a class='link' href='index.php?filename=new_links&s=1&authorid=$intId'>APPROVED</a></td>";
+                                    }
+                                    ?>
+
+                                    <td><a class="link" href="index.php?filename=links_detail&a=4&authorid=<?php echo $row['intNumber']; ?>">Detail</a></td>
+                                    <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&script=editauthor&a=2&authorid=<?php echo $row['intNumber']; ?>&amp;pagno=<?php echo $pageno; ?>"> <img src="images/edit.png" alt="Edit" border="0"> </a></td>
+                                    <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&a=3&authorid=<?php echo $row['intNumber']; ?>&amp;pagno=<?php echo $pageno; ?>" onClick="return confirm('Are you sure you wi
+                                                                sh to delete this record ?');"> <img src="images/del.png" alt="Delete" border="0"> </a></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+
+                            <input type="hidden" name="pagenum" value="<?php echo $pageno ?>" />
+                            <tr>
+                                <td colspan="3" ><div align="center"><?php
+                                        if ($pageno == 1) {
+                                            echo " FIRST PREV ";
+                                        } else {
+                                            echo " <a href='index.php?filename=new_links&pageno=1'>FIRST</a> ";
+                                            $prevpage = $pageno - 1;
+                                            echo " <a href='index.php?filename=new_links&pageno=$prevpage'>PREV</a> ";
+                                        }
+
+                                        echo " ( Page $pageno of $lastpage ) ";
+
+                                        if ($pageno == $lastpage) {
+                                            echo " NEXT LAST ";
+                                        } else {
+                                            $nextpage = $pageno + 1;
+                                            echo " <a href='index.php?filename=new_links&pageno=$nextpage'>NEXT</a> ";
+                                            echo " <a href='index.php?filename=new_links&pageno=$lastpage'>LAST</a> ";
+                                        }
+                                        //extract($_GET);
+                                        //echo $pageno;
+                                        ?>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                </td>
             </tr>
         </table>
     </form>
-
     <?php
 }
 

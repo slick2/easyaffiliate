@@ -233,7 +233,7 @@ if (isset($_REQUEST['pageno'])) {
     if (isset($_REQUEST['script'])) {
         if (trim($_REQUEST['script']) == 'addarticle' || trim($_REQUEST['script']) == 'editarticle') {
             ?>
-            <br>
+            <br />
             <table  border="0" align="center" cellpadding="1" cellspacing="1" width="725">
                 <tr>
                     <td><table width="100%"  border="0" cellspacing="1" cellpadding="1" class="greyborder" width="725">
@@ -244,7 +244,8 @@ if (isset($_REQUEST['pageno'])) {
 
                             <tr>
                                 <td>Author : </td>
-                                <td><select name="author" id="author">
+                                <td>
+                                    <select name="author" id="author">
                                         <option>Select Author</option>
                                         <?php
                                         if ($pdo) {
@@ -269,7 +270,8 @@ if (isset($_REQUEST['pageno'])) {
                             </tr>
                             <tr>
                                 <td>Category :</td>
-                                <td><select name="category" id="category">
+                                <td>
+                                    <select name="category" id="category">
                                         <option value="0">ROOT</option>
                                         <?php
                                         if ($action == 2) {

@@ -276,226 +276,219 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
 
     if (isset($_REQUEST['script'])) {
         if (trim($_REQUEST['script']) == 'addauthor' || trim($_REQUEST['script']) == 'editauthor') {
-            ?><body>
-
-                <table  border="0" align="center" cellpadding="1" cellspacing="1">
-                    <tr align="center" class="line_top">
-
-
-                        <td><div align="center">All Authors</div></td>
-                    </tr></table>
-                <table border="0" cellspacing="1" cellpadding="1"  align="center">
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-
-
-                    <tr>
-                        <td width="184"> Email  :</td>
-                        <td width="229"><input name="mail" type="text" id="mail" value="<?= $Email; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Password : </td>
-                        <td><input name="password" type="password" id="country17" value="<?= $Password; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Verify  Password : </td>
-                        <td><input name="password2" type="password" id="country18" value="<?= $Password; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> First Name : </td>
-                        <td><input name="fname" type="text" id="country19" value="<?= $FirstName; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Last Name : </td>
-                        <td><input name="lname" type="text" id="country20" value="<?= $lastName; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Address Line 1 : </td>
-                        <td><input name="add1" type="text" id="country21" value="<?= $Address1; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Address Line 2 : </td>
-                        <td><input name="add2" type="text" id="country22" value="<?= $Address2; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Zip Code : </td>
-                        <td><input name="zip" type="text" id="country23" value="<?= $Zip; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> City : </td>
-                        <td><input name="city" type="text" id="country24" value="<?= $City; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> State : </td>
-                        <td><input name="state" type="text" id="country25" value="<?= $State; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Country : </td>
-                        <td><select name="country" id="country">
-                                <option>Select Country</option>
-                                <?php
-                                if ($pdo) {
-                                    $query = "SELECT * FROM tblcountry";
-                                    $result = select_pdo($query);
-                                } else {
-                                    $result = $d->fetch("SELECT * FROM tblcountry");
-                                }
-
-                                foreach ($result as $row) {
-                                    ?>
-                                    <option value="<? echo $row['intId'];?>" <? if($row['intId']==$Country){echo "selected";}else{echo "";} ?>><?php echo $row['varCountry']; ?></option>
-                                <?php }
-                                ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <td> Phone Number : </td>
-                        <td><input name="phone" type="text" id="country26" value="<?= $Phone; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td>Fax Number : </td>
-                        <td><input name="fax" type="text" id="country27" value="<?= $Fax; ?>" size="30"></td>
-                    </tr>
-                    <tr>
-                        <td> Agree to the Terms and Conditions? : </td>
-                        <td><input name="terms" type="checkbox" id="terms" value="1" checked></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp; </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><div align="center">
-                                <input name="Submit" type="submit" value="<?php
-                                if ($action == 2) {
-                                    echo "Update";
-                                } else {
-                                    echo "Submit";
-                                }
-                                ?>">
-                            </div></td>
-
-
-                </table></td></td>
-                </tr>
-                </table>
-
-
-                <?php
-            }
-        } else {
             ?>
 
-            <table border="0" align="center" cellpadding="1" cellspacing="0">
-
+            <table  border="0" align="center" cellpadding="1" cellspacing="1">
+                <tr align="center" class="line_top">
+                    <td><div align="center">All Authors</div></td>
+                </tr>
+            </table>
+            <table border="0" cellspacing="1" cellpadding="1"  align="center">
                 <tr>
-                    <td><br>
-                        <table border="0" align="center" cellpadding="1" cellspacing="0">
-                            <tr align="center" class="line_top">
-                                <td width="100%">Detail of Author</td>
-                            </tr>
-                        </table>
-                        <table  border="0" align="center" cellpadding="2" cellspacing="2" class="greyborder">
-                            <tr >
-                                <td>Email</td>
-                                <td>Name</td>
-
-                                <td>Phone</td>
-                                <td>Status</td>
-                                <td>Photo?</td>
-                                <td>Detail</td>
-                                <td><div align="center">Edit</div></td>
-                                <td><div align="center">Delete</div></td>
-                                <td><div align="center">Banned?</div></td>
-                            </tr>
-
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="184"> Email  :</td>
+                    <td width="229"><input name="mail" type="text" id="mail" value="<?= $Email; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Password : </td>
+                    <td><input name="password" type="password" id="country17" value="<?= $Password; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Verify  Password : </td>
+                    <td><input name="password2" type="password" id="country18" value="<?= $Password; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> First Name : </td>
+                    <td><input name="fname" type="text" id="country19" value="<?= $FirstName; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Last Name : </td>
+                    <td><input name="lname" type="text" id="country20" value="<?= $lastName; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Address Line 1 : </td>
+                    <td><input name="add1" type="text" id="country21" value="<?= $Address1; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Address Line 2 : </td>
+                    <td><input name="add2" type="text" id="country22" value="<?= $Address2; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Zip Code : </td>
+                    <td><input name="zip" type="text" id="country23" value="<?= $Zip; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> City : </td>
+                    <td><input name="city" type="text" id="country24" value="<?= $City; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> State : </td>
+                    <td><input name="state" type="text" id="country25" value="<?= $State; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Country : </td>
+                    <td><select name="country" id="country">
+                            <option>Select Country</option>
                             <?php
-                            /*                             * ************************************
-                              PAGING CODE START
-                             * ************************************ */
-                            //$rowperpage=5;
-                            $tablename = "tblauthor,tblcountry";
-                            $per_page_keywords = "tblauthor.intCountry = tblcountry.intId";
-                            $per_page_sorts = "";
-                            //include("system/paging.inc.php");
-
-
-                            /*                             * ************************************
-                              PAGING CODE ENDING
-                             * ************************************ */
-
-                            $a_name = safeEscapeString($_POST['author']);
-                            $pieces = explode(" ", $a_name);
                             if ($pdo) {
-                                $query = "select * from tblauthor WHERE intID = ?";
-                                $bind = array($pieces[0]);
-                                $sql = select_pdo($query, $bind);
+                                $query = "SELECT * FROM tblcountry";
+                                $result = select_pdo($query);
                             } else {
-                                $sql_select = "select * from tblauthor WHERE intID = '" . safeEscapeString($pieces[0]) . "'";
-                                $sql = $d->fetch($sql_select);
+                                $result = $d->fetch("SELECT * FROM tblcountry");
                             }
-                            if ($sql) {
-                                $i = 0;
-                                foreach ($sql as $row) {
-                                    $i = $i + 1;
-                                    ?>
-                                    <tr class="<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>" onMouseOver="this.className = 'Hrhover';"  onMouseOut="this.className = '<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>';">
-                                        <td><?php echo stripString($row['varEmail']); ?></td>
-                                        <td><?php echo stripString($row['varFirstName']) . " " . stripString($row['varlastName']); ?></td>
 
-                                        <td><?php echo stripString($row['varPhone']); ?></td>
-                                        <?php
-                                        if ($row['intStatus'] == 0) {
-                                            $intId = stripString($row['intId']);
-                                            echo "<td><a class='link' href='index.php?filename=authorsearch&s=0&authorid=$intId'>Unapproved</a></td>";
-                                        }
-                                        if ($row['intStatus'] == 1) {
-                                            $intId = $row['intId'];
-                                            echo "<td><a class='link' href='index.php?filename=authorsearch&s=1&authorid=$intId'>APPROVED</a></td>";
-                                        }
-                                    }
-                                    ?>
+                            foreach ($result as $row) {
+                                ?>
+                                <option value="<? echo $row['intId'];?>" <? if($row['intId']==$Country){echo "selected";}else{echo "";} ?>><?php echo $row['varCountry']; ?></option>
+                            <?php }
+                            ?>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td> Phone Number : </td>
+                    <td><input name="phone" type="text" id="country26" value="<?= $Phone; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td>Fax Number : </td>
+                    <td><input name="fax" type="text" id="country27" value="<?= $Fax; ?>" size="30"></td>
+                </tr>
+                <tr>
+                    <td> Agree to the Terms and Conditions? : </td>
+                    <td><input name="terms" type="checkbox" id="terms" value="1" checked></td>
+                </tr>
+                <tr>
+                    <td>&nbsp; </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div align="center">
+                            <input name="Submit" type="submit" value="<?php
+                            if ($action == 2) {
+                                echo "Update";
+                            } else {
+                                echo "Submit";
+                            }
+                            ?>">
+                        </div></td>
 
-                                    <td align="center"><?php
-                                        $photo = $row['authPhoto'];
-                                        if ($photo) {
-                                            echo "Y";
-                                        } else {
-                                            echo "N";
-                                        }
-                                        ?>
-                                    </td>
 
-                                    <td><a class="link" href="index.php?filename=author_detail&a=4&authorid=<?php echo $row['intId']; ?>">Detail</a></td>
-                                    <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&script=editauthor&a=2&authorid=<?php echo $row['intId']; ?>"> <img src="images/edit.png" alt="Edit" border="0"> </a></td>
-                                    <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&a=3&authorid=<?php echo $row['intId']; ?>" onClick="return confirm('Are you sure you wish to delete this record ?');"> <img src="images/del.png" alt="Delete" border="0"> </a></td>
+            </table>
 
-                                    <?php
-                                    if ($row['txtBAN'] == 'No') {
-                                        $intId = $row['intId'];
-                                        echo "<td align='center'><a class='link' href='index.php?filename=author&a=Yes&authorid=$intId' onClick='return confirm('Are you sure you wish to ban this author?');'>No</a></td>";
-                                    }
-                                    if ($row['txtBAN'] == 'Yes') {
-                                        $intId = $row['intId'];
-                                        echo "<td align='center'><a class='link' href='index.php?filename=author&a=No&authorid=$intId' onClick='return confirm('Are you sure you wish to unban this author?');'>Yes</a></td>";
-                                    }
-                                    ?>
+            <?php
+        }
+    } else {
+        ?>
 
-                                </tr>
-                                <tr>
-                                    <td colspan="3" >
-                                        <div align="center">
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </td>
+        <table border="0" align="center" cellpadding="1" cellspacing="0">
+            <tr>
+                <td>
+                    <br />
+                    <table border="0" align="center" cellpadding="1" cellspacing="0">
+                        <tr align="center" class="line_top">
+                            <td width="100%">Detail of Author</td>
                         </tr>
                     </table>
-                </td>
-            </tr>
-        </table>
+                    <table  border="0" align="center" cellpadding="2" cellspacing="2" class="greyborder">
+                        <tr >
+                            <td>Email</td>
+                            <td>Name</td>
+                            <td>Phone</td>
+                            <td>Status</td>
+                            <td>Photo?</td>
+                            <td>Detail</td>
+                            <td><div align="center">Edit</div></td>
+                            <td><div align="center">Delete</div></td>
+                            <td><div align="center">Banned?</div></td>
+                        </tr>
+
+                        <?php
+                        /*                         * ************************************
+                          PAGING CODE START
+                         * ************************************ */
+                        //$rowperpage=5;
+                        $tablename = "tblauthor,tblcountry";
+                        $per_page_keywords = "tblauthor.intCountry = tblcountry.intId";
+                        $per_page_sorts = "";
+                        //include("system/paging.inc.php");
+
+
+                        /*                         * ************************************
+                          PAGING CODE ENDING
+                         * ************************************ */
+
+                        $a_name = safeEscapeString($_POST['author']);
+                        $pieces = explode(" ", $a_name);
+                        if ($pdo) {
+                            $query = "select * from tblauthor WHERE intID = ?";
+                            $bind = array($pieces[0]);
+                            $sql = select_pdo($query, $bind);
+                        } else {
+                            $sql_select = "select * from tblauthor WHERE intID = '" . safeEscapeString($pieces[0]) . "'";
+                            $sql = $d->fetch($sql_select);
+                        }
+                        if ($sql) {
+                            $i = 0;
+                            foreach ($sql as $row) {
+                                $i = $i + 1;
+                                ?>
+                                <tr class="<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>" onMouseOver="this.className = 'Hrhover';"  onMouseOut="this.className = '<?php echo ($i % 2 == 0) ? "Hrnormal" : "Hralter"; ?>';">
+                                    <td><?php echo stripString($row['varEmail']); ?></td>
+                                    <td><?php echo stripString($row['varFirstName']) . " " . stripString($row['varlastName']); ?></td>
+
+                                    <td><?php echo stripString($row['varPhone']); ?></td>
+                                    <?php
+                                    if ($row['intStatus'] == 0) {
+                                        $intId = stripString($row['intId']);
+                                        echo "<td><a class='link' href='index.php?filename=authorsearch&s=0&authorid=$intId'>Unapproved</a></td>";
+                                    }
+                                    if ($row['intStatus'] == 1) {
+                                        $intId = $row['intId'];
+                                        echo "<td><a class='link' href='index.php?filename=authorsearch&s=1&authorid=$intId'>APPROVED</a></td>";
+                                    }
+                                }
+                                ?>
+
+                                <td align="center"><?php
+                                    $photo = $row['authPhoto'];
+                                    if ($photo) {
+                                        echo "Y";
+                                    } else {
+                                        echo "N";
+                                    }
+                                    ?>
+                                </td>
+
+                                <td><a class="link" href="index.php?filename=author_detail&a=4&authorid=<?php echo $row['intId']; ?>">Detail</a></td>
+                                <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&script=editauthor&a=2&authorid=<?php echo $row['intId']; ?>"> <img src="images/edit.png" alt="Edit" border="0"> </a></td>
+                                <td align="center"><a class="link" href="index.php?filename=<?php echo $_REQUEST['filename']; ?>&a=3&authorid=<?php echo $row['intId']; ?>" onClick="return confirm('Are you sure you wish to delete this record ?');"> <img src="images/del.png" alt="Delete" border="0"> </a></td>
+
+                                <?php
+                                if ($row['txtBAN'] == 'No') {
+                                    $intId = $row['intId'];
+                                    echo "<td align='center'><a class='link' href='index.php?filename=author&a=Yes&authorid=$intId' onClick='return confirm('Are you sure you wish to ban this author?');'>No</a></td>";
+                                }
+                                if ($row['txtBAN'] == 'Yes') {
+                                    $intId = $row['intId'];
+                                    echo "<td align='center'><a class='link' href='index.php?filename=author&a=No&authorid=$intId' onClick='return confirm('Are you sure you wish to unban this author?');'>Yes</a></td>";
+                                }
+                                ?>
+
+                            </tr>
+                            <tr>
+                                <td colspan="3" >
+                                    <div align="center">
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </form>
