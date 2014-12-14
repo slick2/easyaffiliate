@@ -43,23 +43,28 @@ $_REQUEST = array_map('stripslashes', $_REQUEST);
 if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Change Password") {
     if ($pdo) {
         $authorId = $_SESSION['uid'];
-        $query = "SELECT varPassword FROM tblauthor WHERE intId = ?";
+        $query = "SELECT salt, varPassword FROM tblauthor WHERE intId = ?";
         $bind = array($authorId);
         $result = select_pdo($query, $bind);
     } else {
 
         $authorId = safeEscapeString($_SESSION['uid']);
-        $sql = "SELECT varPassword FROM tblauthor WHERE intId ='$authorId'";
+        $sql = "SELECT salt, varPassword FROM tblauthor WHERE intId ='$authorId'";
         $result = $d->fetch($sql);
     }
+
+    $salt = $result[0]['salt'];
     $oldpass = stripString($result[0]['varPassword']);
+
 
     $tmp_pass = "";
     $tmp_pass = $_REQUEST['old_pass'];
-    $oldpassword = $tmp_pass;
+    $oldpassword = shadow($salt.$tmp_pass);
     $tmp_new = "";
     $tmp_new = $_REQUEST['new_pass'];
-    $newpassword = $tmp_new;
+    $newpassword = shadow($salt.$tmp_new);
+
+
     if ($oldpass != $oldpassword) {
         $_SESSION['msg'] = "You old password is not a match for updating, <br>Please go back and enter your old password.";
         header("location:thankyou.php");
@@ -73,7 +78,7 @@ if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Change Password"
     } else {
 
         $newpassword = safeEscapeString($newpassword);
-        $newpassword = safeEscapeString($authorId);
+        $authorId = safeEscapeString($authorId);
         $sql_upd = "UPDATE tblauthor SET varPassword = '$newpassword' WHERE intId ='$authorId'";
         $result = $d->exec($sql_upd);
     }
@@ -87,16 +92,16 @@ if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Change Password"
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <meta NAME="DESCRIPTION" CONTENT="" />
-            <meta NAME="KEYWORDS" CONTENT="" />
-            <meta name="robots" content="index, follow" />
-            <meta name="distribution" content="Global" />
-            <meta NAME="rating" CONTENT="General" />
-            <link rel="stylesheet" href="css/style.css" type="text/css" />
-            <title>
-                <?php echo $title; ?> | Change Pass
-            </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta NAME="DESCRIPTION" CONTENT="" />
+        <meta NAME="KEYWORDS" CONTENT="" />
+        <meta name="robots" content="index, follow" />
+        <meta name="distribution" content="Global" />
+        <meta NAME="rating" CONTENT="General" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <title>
+            <?php echo $title; ?> | Change Pass
+        </title>
     </head>
     <body>
         <div class="content">
@@ -127,40 +132,42 @@ if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Change Password"
                     <div class="article"><h2>Change Password</h2>
                         <p>&nbsp;
                         </p>
-                        <table  border="0" cellspacing="1" cellpadding="1" class="greyborder" align="center">
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td> Old Password : </td>
-                                <td>
-                                    <input name="old_pass" type="text" id="country19" value="" size="30" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> New Password : </td>
-                                <td>
-                                    <input name="new_pass" type="text" id="country20" value="" size="30" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> Confirm Password : </td>
-                                <td>
-                                    <input name="cpass" type="text" id="country21" value="" size="30" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp; </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div align="center">
-                                        <input type="submit" name="Submit" value="Change Password" onClick="return changepassword();" />
-                                    </div>
-                                </td>
-                        </table>
+                        <form method="post">
+                            <table  border="0" cellspacing="1" cellpadding="1" class="greyborder" align="center">
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td> Old Password : </td>
+                                    <td>
+                                        <input name="old_pass" type="text" id="country19" value="" size="30" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> New Password : </td>
+                                    <td>
+                                        <input name="new_pass" type="text" id="country20" value="" size="30" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> Confirm Password : </td>
+                                    <td>
+                                        <input name="cpass" type="text" id="country21" value="" size="30" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp; </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div align="center">
+                                            <input type="submit" name="Submit" value="Change Password" onClick="return changepassword();" />
+                                        </div>
+                                    </td>
+                            </table>
+                        </form>
                         <!-- End index text -->
                     </div>
                     <!-- End Content Area -->
