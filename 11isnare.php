@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Article Friendly
  */
@@ -10,7 +11,7 @@ if (!$_POST) {
 $ip = $_SERVER["REMOTE_ADDR"];
 
 // check for isnare ip address. die if not right
-if ($ip != '96.44.178.162') {
+if ($ip != '108.60.207.5') {
     die("bad IP");
 }
 
