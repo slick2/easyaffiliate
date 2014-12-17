@@ -219,10 +219,7 @@ FROM tblarticles where intAuthorId = '$authorId' AND intStatus = 1 ORDER BY ttSu
                                                 $the_title = stripString($row['varArticleTitle']);
                                                 ?>
                                                 <li>
-                                                    <a href="articledetail.php?artid=<? echo $row['intId'];?>&catid=<? echo $row['intCategory'];?>&title=
-                                                       <?php echo htmlentities($the_title) ?>" title="
-                                                       <? echo stripString(htmlentities($row['varArticleTitle']));?>">
-                                                        <?php echo stripString(htmlentities($row['varArticleTitle'])); ?></a>
+                                                    <a href="articledetail.php?artid=<?php echo $row['intId']; ?>&catid=<?php echo $row['intCategory']; ?>&title=<?php echo htmlentities($the_title) ?>" title="<?php echo stripString(htmlentities($row['varArticleTitle'])); ?>"><?php echo stripString(htmlentities($row['varArticleTitle'])); ?></a>
                                                     <?php
                                                 }
                                             }
@@ -261,10 +258,9 @@ FROM tblarticles where intStatus = 1 ORDER BY ttSubmitDate DESC LIMIT 0 , '$home
                                                 $the_title = stripString($rs['varArticleTitle']);
                                                 ?>
                                                 <li>
-                                                    <a href="articledetail.php?artid=<? echo $rs['intId'];?>&catid=<? echo $rs['intCategory'];?>&title=
-                                                       <?php echo htmlentities($the_title) ?>" title="
-                                                       <? echo stripString(htmlentities($rs['varArticleTitle']));?>">
-                                                        <? echo stripString(htmlentities($rs['varArticleTitle']));?></a>
+                                                    <a href="articledetail.php?artid=<?php echo $rs['intId']; ?>&catid=<?php echo $rs['intCategory']; ?>&title=<?php echo htmlentities($the_title) ?>" title="<?php echo stripString(htmlentities($rs['varArticleTitle'])); ?>">
+                                                        <?php echo stripString(htmlentities($rs['varArticleTitle'])); ?>
+                                                    </a>
                                                 </li>
                                                 <?php
                                             }
