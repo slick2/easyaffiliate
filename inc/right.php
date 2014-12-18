@@ -18,10 +18,10 @@ if (!defined('AFFREE')) {
         }
         ?>>Learn More</a></p>
     <p><a href='terms.php' <?php
-          if ($page == 'terms') {
-              echo 'class="location"';
-          }
-          ?>>Terms Of Service</a></p>
+        if ($page == 'terms') {
+            echo 'class="location"';
+        }
+        ?>>Terms Of Service</a></p>
     <p><a href='top_authors.php' <?php
         if ($page == 'top') {
             echo 'class="location"';
@@ -33,18 +33,18 @@ if (!defined('AFFREE')) {
         }
         ?>>About Us</a></p>
     <p><a href='privacy.php' <?php
-if ($page == 'privacy') {
-    echo 'class="location"';
-}
+        if ($page == 'privacy') {
+            echo 'class="location"';
+        }
         ?>>Privacy Policy</a></p>
     <p><a href='rss.php'>RSS</a></p>
 
 </div>
 <div class="box_bottom"></div>
 
-    <?php
-    if ($page != 'articledetail') {
-        ?>
+<?php
+if ($page != 'articledetail') {
+    ?>
     <div class="box_top">
         <h2>Featured Authors</h2>
     </div>
@@ -55,7 +55,7 @@ if ($page == 'privacy') {
             $query = '';
             $query = "SELECT intId,authPhoto,varFirstName,varlastName,dtRegisteredDate,varCity,varState
           FROM tblauthor WHERE intStatus= 1 ORDER BY RAND() LIMIT 5";
-            $myquery = select_pdo($query, "", "feat_auths.af", 3600);
+            $myquery = select_pdo($query, NULL, "feat_auths.af", 3600);
         } else {
 
             $myresults = '';
@@ -63,19 +63,20 @@ if ($page == 'privacy') {
               FROM tblauthor WHERE intStatus= 1 ORDER BY RAND() LIMIT 5";
             $myquery = $d->fetch($myresults, "daily", "feat_auths.af");
         }
+        print_r($myquery);
         foreach ($myquery as $row) {
             ?>
             <p>
-        <?php
-        if ($row['authPhoto'] > "") {
-            echo "<img src='author/" . $row['authPhoto'] . "' style='border:1px solid;color: black;' width='44' height='40' alt='Article Friendly Author Photo'>";
-        } else {
-            echo "<img src='images/male_mem.jpg' style='border:1px solid;color: black' width='44' height='40' alt='Article Friendly Author Photo'>";
-        }
-        $name = stripslashes(htmlentities($row['varFirstName'] . " " . $row['varlastName'], ENT_QUOTES, "UTF-8"));
-        $city = stripslashes(htmlentities($row['varCity'], ENT_QUOTES, "UTF-8"));
-        $state = stripslashes(htmlentities($row['varState'], ENT_QUOTES, "UTF-8"));
-        ?>
+                <?php
+                if ($row['authPhoto'] > "") {
+                    echo "<img src='author/" . $row['authPhoto'] . "' style='border:1px solid;color: black;' width='44' height='40' alt='Article Friendly Author Photo'>";
+                } else {
+                    echo "<img src='images/male_mem.jpg' style='border:1px solid;color: black' width='44' height='40' alt='Article Friendly Author Photo'>";
+                }
+                $name = stripslashes(htmlentities($row['varFirstName'] . " " . $row['varlastName'], ENT_QUOTES, "UTF-8"));
+                $city = stripslashes(htmlentities($row['varCity'], ENT_QUOTES, "UTF-8"));
+                $state = stripslashes(htmlentities($row['varState'], ENT_QUOTES, "UTF-8"));
+                ?>
             </p>
             <p>
                 <b><?php echo $name; ?></b><br>
@@ -85,9 +86,9 @@ if ($page == 'privacy') {
 
                 <a  href="authordetail.php?autid=<?php echo htmlentities($row['intId']) ?>&amp;script=browse" style="color:blue;">View My Articles</a><br><br>
             </p>
-        <?php
-    }
-    ?>
+            <?php
+        }
+        ?>
     </div>
     <div class="box_bottom"></div>
 
@@ -105,13 +106,12 @@ if ($page == 'privacy') {
         <p><a href="" onclick='window.external.AddFavorite(location.href, document.title);'>
                 <img src="images/addtofavorites.gif" width="16" height="16" border="0"> Add To Favorites</a> </p>
         <p>&nbsp;</p>
-        <p><form action="tell_a_friend.php" method="post"><div align="center"><input type="submit" class="a_right" value="Email a Friend"></div>
-    <?php
-    $pass = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
-    ?>
+        <form action="tell_a_friend.php" method="post"><div align="center"><input type="submit" class="a_right" value="Email a Friend"></div>
+            <?php
+            $pass = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
+            ?>
             <input type="hidden" name="art" value="<?php echo $pass ?>">
         </form>
-    </p>
     </div>
     <?php
 }
@@ -133,4 +133,3 @@ if (isset($_SESSION['uid']) && trim($_SESSION['uid']) != "") {
     <div class="box_bottom"></div>
     <?php
 }
-?>
