@@ -328,13 +328,14 @@ if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Submit") {
     /* additional headers */
     $headers .= "Content-Transfer-Encoding: 8bit\r\n";
     $headers .= "From: $fromemail\r\n";
+    $headers .= "Repy-To: $fromemail\r\n";
     $headers .= "X-Mailer: PHP" . phpversion();
     $headers .= "";
 
     /* and now mail it */
     //mail($to, $subject, $message, $headers);
 
-    if ($email_sent == "") {
+    if (empty($email_sent)) {
         mail($to, $subject, $message, $headers);
         $email_sent = "true";
         $_SESSION['msg'] = "E-mail confirmation link has been sent to the email address provided. <BR> Please check your email address at " . $to;
