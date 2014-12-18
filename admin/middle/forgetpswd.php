@@ -97,7 +97,7 @@ if (isset($_REQUEST['Submit']) && trim($_REQUEST['Submit']) == "Submit") {
         /* additional headers */
 
         $headers .= "From: Password Reminder<" . $fromemail . ">\r\n";
-
+        $headers .= "Repy-To: $fromemail\r\n";
         /* and now mail it */
         mail($to, $sub, $message, $headers);
 

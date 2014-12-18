@@ -131,6 +131,7 @@ $_REQUEST = array_map('stripslashes', $_REQUEST);
                                                                 /* additional headers */
 
                                                                 $headers = "From: $fromemail \r\n";
+                                                                $headers .= "Repy-To: $fromemail\r\n";
                                                                 //$headers .= "";
                                                                 //echo $message;
                                                                 //die();
@@ -168,7 +169,8 @@ $_REQUEST = array_map('stripslashes', $_REQUEST);
 
                                                                 /* additional headers */
 
-                                                                $headers = "From: $fromemail \r\n";
+                                                                $headers .= "From: $fromemail \r\n";
+                                                                $headers .= "Repy-To: $fromemail\r\n";
                                                                 //$headers .= "";
                                                                 //echo $message;
                                                                 //die();
@@ -204,7 +206,7 @@ $_REQUEST = array_map('stripslashes', $_REQUEST);
                                             </div>
                                         </div>
                                         <div class="right">
-<?php require_once(INC . '/right.php'); ?>
+                                            <?php require_once(INC . '/right.php'); ?>
                                         </div>
                                         <div class="header_bottom">
                                         </div>
@@ -214,6 +216,6 @@ $_REQUEST = array_map('stripslashes', $_REQUEST);
                                     </div>
                                 </body>
                                 </html>
-                                            <?php
-                                            ob_end_flush();
-                                            ?>
+                                <?php
+                                ob_end_flush();
+                                ?>

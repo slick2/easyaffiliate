@@ -275,7 +275,7 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
 
                 /* additional headers */
                 $headers .= "From: " . $fromemail . "\r\n";
-
+                $headers .= "Repy-To: $fromemail\r\n";
 
                 /* and now mail it */
                 mail($toemail, $subject, $message, $headers);
@@ -366,6 +366,7 @@ if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '') {
                 /* additional headers */
 
                 $headers .= "From: " . $fromemail . "\r\n";
+                $headers .= "Repy-To: $fromemail\r\n";
                 //$headers .= "";
                 //echo $message;
                 //die();

@@ -1,4 +1,5 @@
 <?php
+include ('htmlpurifier/library/HTMLPurifier.includes.php');
 ///////////////////// TERMS OF USE //////////////////////////
 //
 //  1. You must keep a link to articlefriendly.com at the bottom of at least one page on the frontend pages.
@@ -78,8 +79,10 @@ if ($_POST) {
         header("location:thankyou.php");
         die();
     }
+
     if (!preg_match("/(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/", $_POST['site_addy'])) {
         $_SESSION['msg'] = "Your site link URL is not valid. Please try again";
+        #echo preg_match("/(?i)\b((?:http?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/", $_POST['site_addy']);
         header("location:thankyou.php");
         die();
     }
@@ -244,6 +247,7 @@ if ($_POST) {
         /* additional headers */
 
         $headers .= "From: " . $fromemail . "\r\n";
+        $headers .= "Repy-To: $fromemail\r\n";
         //$headers .= "";
         //echo $message;
         //die();

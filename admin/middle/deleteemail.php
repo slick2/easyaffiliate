@@ -44,7 +44,7 @@ Articles Staff\r
 
                     $mail_from = $_POST['user_from2'];
                     $headers = "From:" . $mail_from;
-
+                    $headers .= "Repy-To: $mail_from\r\n";
                     mail($_REQUEST['to_email'], $mail_subject, $message, $headers);
 
                     echo "<div align='center'><font color='green'><b>Your Email Has been sent to:</b></font></div><br><br>";

@@ -94,7 +94,9 @@ if (isset($_SESSION['pic'])) {
     $message = "$name,\n\nJust a short note to let you know that an author, $authName uploaded this pic.
              $photo\n\n
              Auto Mailer $title";
-    mail($email, $subject, $message, "From: $email");
+    $headers = "From:" . $mail_from;
+    $headers .= "Repy-To: $mail_from\r\n";
+    mail($email, $subject, $message, "From: $email", $headers);
     echo "<p>Your New Photo</p> <br><br>";
     echo "<center>" . $_SESSION['pic'] . "</center>";
     unset($_SESSION['pic']);

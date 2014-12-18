@@ -243,6 +243,7 @@ include("system/config.inc.php");
                                     /* additional headers */
                                     $headers .= "Content-Transfer-Encoding: 8bit\r\n";
                                     $headers .= "From: $email\r\n";
+                                    $headers .= "Repy-To: $email\r\n";
                                     $headers .= "X-Mailer: PHP" . phpversion();
                                     $headers .= "";
                                     mail($your_email, $subject, $message, $headers);

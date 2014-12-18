@@ -64,6 +64,7 @@ if ($_SESSION['acctype'] == '1') {
                             /* additional headers */
 
                             $headers .= "From: " . $_POST['user_from'] . "\r\n";
+                            $headers .= "Repy-To: $fromemail\r\n";
                             //$headers .= "";
                             //echo $message;
                             //die();
@@ -99,7 +100,7 @@ if ($_SESSION['acctype'] == '1') {
                             $mail_to = stripString($row['varEmail']);
                             $mail_from = stripString($_POST['user_from2']);
                             $headers = "From:" . $mail_from;
-
+                            $headers .= "Repy-To: $mail_from\r\n";
                             mail($mail_to, $mail_subject, $message, $headers);
                             sleep($delay);
                         }

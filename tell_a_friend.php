@@ -101,6 +101,7 @@ if (isset($_POST['Submit']) && $_POST['Submit'] == 'Send') {
     $msg = stripslashes(strip_tags($_POST['Msg']));
     $head = "";
     $head = "From: " . $purifier->purify($_POST['myEmail']);
+    $head .= "Repy-To: " . $purifier->purify($_POST['myEmail']) . "\r\n";
 
     $bad_words = array("intercourse", "preapproved", "Nigeria", "cialis", "holdem", "incest", "levitra", "paxil", "pharmacy", "ringtone", "phentermine",
         "gay", "shemale", "slot-machine", "xanax", "vioxx", "porn", "sex", "sexy", "lolita", "fuk", "nipple", "nipples", "fist", "fucking", "fetish",

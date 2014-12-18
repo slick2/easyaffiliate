@@ -141,7 +141,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit') {
 
         $headers .= "From: " . $fromemail . "\r\n";
 
-
+        $headers .= "Repy-To: $fromemail\r\n";
 
 
         /* and now mail it */
@@ -175,17 +175,17 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Submit') {
                                         <div class="header_top"></div>
                                         <div class="header">
 
-<?php require_once(INC . '/menu.php'); ?>
+                                            <?php require_once(INC . '/menu.php'); ?>
 
                                             <div class="sf_left">
-<?php require_once(INC . '/logo.php'); ?>
+                                                <?php require_once(INC . '/logo.php'); ?>
                                             </div>
                                         </div>
                                         <div class="header_bottom"></div>
                                         <div class="subheader">
                                             <p><?php
-include("language.php");
-?></p>
+                                                include("language.php");
+                                                ?></p>
                                         </div>
                                         <div class="header_top"></div>
                                         <div class="left">
@@ -199,32 +199,32 @@ include("language.php");
                                                     <h2>Forgotten User/Pass</h2>
                                                     <p>&nbsp;</p>
                                                     <form method="post" name="frmfgtpswd" id="frmfgtpswd" onClick="return confirmsubmit();">
-                                                    <table width="100%" border="0" cellpadding="5" cellspacing="2">
-                                                        <tr>
-                                                            <td colspan="2">&nbsp;</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2">Enter the email address below that was used to register your Author account.. </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2">&nbsp;</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="49%"><div align="right">Email:</div></td>
-                                                            <td width="51%"><div align="left">
-                                                                    <input name="email" type="text" id="email3">
-                                                                </div></td>
-                                                        </tr>
-                                                        <tr><td>&nbsp;</td></tr>
-                                                        <tr>
-                                                            <td colspan="2"><div align="center">
-                                                                    <input type="submit" name="submit" value="Submit" />
+                                                        <table width="100%" border="0" cellpadding="5" cellspacing="2">
+                                                            <tr>
+                                                                <td colspan="2">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Enter the email address below that was used to register your Author account.. </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="49%"><div align="right">Email:</div></td>
+                                                                <td width="51%"><div align="left">
+                                                                        <input name="email" type="text" id="email3">
+                                                                    </div></td>
+                                                            </tr>
+                                                            <tr><td>&nbsp;</td></tr>
+                                                            <tr>
+                                                                <td colspan="2"><div align="center">
+                                                                        <input type="submit" name="submit" value="Submit" />
                                                                         &nbsp;</div></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2">&nbsp;</td>
-                                                        </tr>
-                                                    </table>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">&nbsp;</td>
+                                                            </tr>
+                                                        </table>
                                                     </form>
 
                                                     <!-- End index text -->
@@ -237,18 +237,18 @@ include("language.php");
                                         </div>
                                         <div class="right">
 
-<?php require_once(INC . '/right.php'); ?>
+                                            <?php require_once(INC . '/right.php'); ?>
 
                                         </div>
                                         <div class="header_bottom"></div>
                                         <div class="footer">
 
-<?php require_once(INC . '/footer.php'); ?>
+                                            <?php require_once(INC . '/footer.php'); ?>
 
                                         </div>
                                     </div>
                                 </body>
                                 </html>
-<?php
-ob_end_flush();
-?>
+                                <?php
+                                ob_end_flush();
+                                ?>
